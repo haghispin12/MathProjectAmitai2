@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="אתגר"
+            android:layout_weight="33"
+            />
+        <Button
+            android:id="@+id/btUntilTwenty"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="כפל עד 20"
+            android:layout_weight="33"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+        <Button
+            android:id="@+id/btMultiplicationTable"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="לוח הכפל"
+            android:layout_weight="33"
+            />
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/tvNumOne"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="number"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:background="#FFD933"
+            />
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="X"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:background="#FFD933"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvNumTwo"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="number"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:background="#FFD933"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/etAnswer"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="תשובה"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:background="#FFD933"
+            android:layout_marginTop="10dp"
+            />
+        <Button
+            android:id="@+id/btCheck"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="בדיקה"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:layout_marginTop="10dp"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+
+     <Button
+         android:id="@+id/btSave"
+         android:layout_width="match_parent"
+         android:layout_height="40sp"
+         android:layout_marginTop="10dp"
+         android:text="save"
+         android:backgroundTint="@android:color/holo_red_dark"
+/>
+
+        <Button
+            android:id="@+id/btShowAllUsers"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:text="show all users"
+
+/>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
