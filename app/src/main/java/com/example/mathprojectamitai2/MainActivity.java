@@ -30,17 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btShowAllUsers;
 
-
+            Exercise exercise;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        exercise =new Exercise();
         initview();
     }
-    private int num1;
-    private int num2;
+
 
     public void initview(){
         btChallenge = findViewById(R.id.btChallenge);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setBtChallenge();
+            exercise.setBtChallenge();
             update();
             //hag
             }
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         btUntiltwenty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setBtUntiltwenty();
+            exercise.setBtUntiltwenty();
              update();
             }
         });
@@ -72,37 +72,22 @@ public class MainActivity extends AppCompatActivity {
         btMultiplicationTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setBtMultiplicationTable();
+            exercise.setBtMultiplicationTable();
             update();
             }
         });
 
-        tvNumOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            update();
-            }
-        });
 
-        tvNumTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                update();
-            }
-        });
 
-        etAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         btCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (check())
+                boolean b=exercise.check(etAnswer.getText().toString());
+                if (b)
                     Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
+
             else
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
             }
@@ -123,37 +108,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-public void setBtChallenge(){
-        Random r = new Random();
-        num1 = r.nextInt(8) + 1;
-        num2 = r.nextInt(89) + 10;
-    }
 
-    public void setBtUntiltwenty(){
-        Random r = new Random();
-        num1 = r.nextInt(8) + 1;
-        num2 = r.nextInt(10) + 10;
-    }
-
-    public void setBtMultiplicationTable(){
-        Random r = new Random();
-        num1 = r.nextInt(8) + 1;
-        num2 = r.nextInt(8) + 1;
-    }
 
     public void update(){
-        tvNumOne.setText(num1+" ");
-        tvNumTwo.setText(num2+" ");
+        tvNumOne.setText(exercise.getNum1()+" ");
+        tvNumTwo.setText(exercise.getNum2()+" ");
     }
 
-    public boolean check(){
-       int result = num1+num2;
-        String res = result + "";
-        if(res.equals(etAnswer.getText().toString())) {
-            return true;
-        }else
-        return false;
-    }
+
 
 
 

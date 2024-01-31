@@ -82,7 +82,7 @@
             android:id="@+id/etAnswer"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:text="תשובה"
+            android:hint="תשובה"
             android:gravity="center"
             android:textSize="40sp"
             android:background="#FFD933"
