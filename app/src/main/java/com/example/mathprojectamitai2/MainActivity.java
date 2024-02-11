@@ -1,6 +1,8 @@
  package com.example.mathprojectamitai2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btShowAllUsers;
 
+     private ViewModel viewModel;
+
             Exercise exercise;
 
 
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         exercise =new Exercise();
         initview();
+
+
+
     }
 
 
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btCheck = findViewById(R.id.btCheck);
         btsave = findViewById(R.id.btSave);
         btShowAllUsers = findViewById(R.id.btShowAllUsers);
+
         btChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
         tvNumOne.setText(exercise.getNum1()+" ");
         tvNumTwo.setText(exercise.getNum2()+" ");
     }
+
+
+
+
+
 
 
 
