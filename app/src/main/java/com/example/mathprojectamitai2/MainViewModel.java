@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 
 public class MainViewModel extends ViewModel {
-   private MutableLiveData<Integer> vNum1;
-   private MutableLiveData<Integer> vNum2;
+    MutableLiveData<Integer> vNum1;
+    MutableLiveData<Integer> vNum2;
     Exercise exercise;
 
     //constructor

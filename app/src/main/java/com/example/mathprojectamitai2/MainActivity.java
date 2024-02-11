@@ -1,6 +1,7 @@
  package com.example.mathprojectamitai2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btShowAllUsers;
 
-     private ViewModel viewModel;
+     private MainViewModel viewModel;
 
             Exercise exercise;
 
@@ -43,7 +44,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         exercise =new Exercise();
         initview();
+        viewModel.vNum1.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
 
+            }
+        });
+
+        viewModel.vNum2.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+            }
+        });
 
 
     }
