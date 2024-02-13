@@ -22,6 +22,21 @@ public class MainViewModel extends ViewModel {
      vNum2.setValue(exercise.getNum2());
     }
 
+    public void vMultiplicationTable(){
+    exercise.setBtMultiplicationTable();
+    vNum1.setValue(exercise.getNum1());
+    vNum2.setValue(exercise.getNum2());
+    }
 
+    public void vUntiltwenty(){
+    exercise.setBtUntiltwenty();
+    vNum1.setValue(exercise.getNum1());
+    vNum2.setValue(exercise.getNum2());
+    }
+
+    public boolean vCheck(String answer) {
+        boolean b1 = exercise.check(answer);
+     return b1;
+    }
 
 }

@@ -35,28 +35,32 @@ public class MainActivity extends AppCompatActivity {
 
      private MainViewModel viewModel;
 
-            Exercise exercise;
+            //Exercise exercise;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        exercise =new Exercise();
         initview();
+        viewModel = new MainViewModel();
         viewModel.vNum1.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-
+                tvNumOne.setText(integer + "");
             }
         });
 
         viewModel.vNum2.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-
+                tvNumTwo.setText(integer + "");
             }
         });
+
+
+
+
 
 
     }
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         btChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            exercise.setBtChallenge();
+            viewModel.vChallenge();
             update();
             //hag
             }
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         btUntiltwenty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            exercise.setBtUntiltwenty();
+            viewModel.vUntiltwenty();
              update();
             }
         });
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         btMultiplicationTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            exercise.setBtMultiplicationTable();
+            viewModel.vMultiplicationTable();
             update();
             }
         });
@@ -105,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         btCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean b=exercise.check(etAnswer.getText().toString());
+                boolean b=viewModel.vCheck(etAnswer.getText().toString());
                 if (b)
                     Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
 
@@ -132,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void update(){
-        tvNumOne.setText(exercise.getNum1()+" ");
-        tvNumTwo.setText(exercise.getNum2()+" ");
+        tvNumOne.setText(viewModel.vNum1.getValue() + "");
+        tvNumTwo.setText(viewModel.vNum2.getValue() +" ");
     }
 
 
