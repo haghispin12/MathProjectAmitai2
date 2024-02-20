@@ -10,18 +10,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/btRate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="RATE"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btChallenge"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:text="אתגר"
             android:layout_weight="33"
             />
         <Button
             android:id="@+id/btUntilTwenty"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:text="כפל עד 20"
             android:layout_weight="33"
             android:layout_marginStart="10dp"
@@ -30,7 +48,7 @@
         <Button
             android:id="@+id/btMultiplicationTable"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:text="לוח הכפל"
             android:layout_weight="33"
             />
@@ -49,7 +67,7 @@
         <TextView
             android:id="@+id/tvNumOne"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:text="number"
             android:textAlignment="center"
             android:gravity="center"
@@ -58,7 +76,7 @@
             />
         <TextView
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:text="X"
             android:textAlignment="center"
             android:gravity="center"
@@ -70,7 +88,7 @@
         <TextView
             android:id="@+id/tvNumTwo"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:text="number"
             android:gravity="center"
             android:textSize="40sp"
@@ -81,7 +99,7 @@
         <EditText
             android:id="@+id/etAnswer"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:hint="תשובה"
             android:gravity="center"
             android:textSize="40sp"
@@ -91,7 +109,7 @@
         <Button
             android:id="@+id/btCheck"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:text="בדיקה"
             android:gravity="center"
             android:textSize="30dp"

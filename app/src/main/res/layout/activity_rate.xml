@@ -4,31 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RateActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
->
+        android:gravity="center">
 
-        <EditText
-            android:id="@+id/etUserName"
+        <SeekBar
+            android:id="@+id/sbRate"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Enter user name"
-            android:gravity="center"
-            android:textSize="40dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="50"
+            android:min="0"
             />
+        
         <Button
-            android:id="@+id/btSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:id="@+id/btSaveRate"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="SAVE"
             android:layout_marginTop="10dp"
-            android:text="SUBMIT"
             />
-
 
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

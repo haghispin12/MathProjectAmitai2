@@ -1,5 +1,9 @@
  package com.example.mathprojectamitai2;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -36,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
      private MainViewModel viewModel;
 
+     private Button btrate;
+
+     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+             new ActivityResultContracts.StartActivityForResult(),
+             new ActivityResultCallback<ActivityResult>() {
+                 @Override
+                 public void onActivityResult(ActivityResult result) {
+                     int myRate = result.getData().getIntExtra("Rate key",-1);
+                 }
+             });
+
+
+
             //Exercise exercise;
 
 
@@ -61,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         String userName=intent.getStringExtra("userKey");
+        Toast.makeText(MainActivity.this,userName+"", Toast.LENGTH_LONG).show();
 
 
 
@@ -80,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btCheck = findViewById(R.id.btCheck);
         btsave = findViewById(R.id.btSave);
         btShowAllUsers = findViewById(R.id.btShowAllUsers);
+        btrate = findViewById(R.id.btRate);
 
         btChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         btCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,6 +150,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        btrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RateActivity.class);
+                activityResultLauncher.launch(intent);
+            }
+        });
+
+
     }
 
 
