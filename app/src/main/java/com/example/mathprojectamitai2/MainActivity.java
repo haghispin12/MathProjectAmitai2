@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
              new ActivityResultCallback<ActivityResult>() {
                  @Override
                  public void onActivityResult(ActivityResult result) {
-                     int myRate = result.getData().getIntExtra("Rate key",-1);
+                     int myRate = result.getData().getIntExtra("RateKey", -1);
+                     Toast.makeText(MainActivity.this, myRate+"", Toast.LENGTH_LONG).show();
                  }
              });
 

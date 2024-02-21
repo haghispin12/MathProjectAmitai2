@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class RateActivity extends AppCompatActivity {
 
     private SeekBar sbRate;
     private Button btSaveRate;
+    private TextView tvNumOfRate;
 
 
     @Override
@@ -26,12 +28,30 @@ public class RateActivity extends AppCompatActivity {
     public void initview(){
         sbRate = findViewById(R.id.sbRate);
         btSaveRate = findViewById(R.id.btSaveRate);
+        tvNumOfRate = findViewById(R.id.tvNumOfRate);
+
+        sbRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tvNumOfRate.setText(seekBar.getProgress()+"");
+            }
+        });
 
         btSaveRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent inn = new Intent();
-                inn.putExtra("Rate Key", sbRate.getProgress());
+                inn.putExtra("RateKey", sbRate.getProgress());
                 setResult(RESULT_OK, inn);
                 finish();
             }
