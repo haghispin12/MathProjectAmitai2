@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -17,9 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
-
-public class MainActivity extends AppCompatActivity {
+ public class MainActivity extends AppCompatActivity {
     private Button btChallenge;
 
     private Button btUntiltwenty;
@@ -49,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                  public void onActivityResult(ActivityResult result) {
                      int myRate = result.getData().getIntExtra("RateKey", -1);
                      Toast.makeText(MainActivity.this, myRate+"", Toast.LENGTH_LONG).show();
+
                  }
              });
 
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initview();
-        viewModel = new MainViewModel();
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.vNum1.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -80,12 +78,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userName=intent.getStringExtra("userKey");
         Toast.makeText(MainActivity.this,userName+"", Toast.LENGTH_LONG).show();
-
-
-
-
-
-
+        viewModel.updateName(userName);
     }
 
 

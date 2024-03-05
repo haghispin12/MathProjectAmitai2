@@ -8,6 +8,8 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum1;
     MutableLiveData<Integer> vNum2;
     Exercise exercise;
+    User user;
+
 
     //constructor
     public MainViewModel(){
@@ -37,6 +39,10 @@ public class MainViewModel extends ViewModel {
     public boolean vCheck(String answer) {
         boolean b1 = exercise.check(answer);
      return b1;
+    }
+
+    public void updateName(String name){
+        user.setName(name);
     }
 
 }

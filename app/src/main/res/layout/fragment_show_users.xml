@@ -13,12 +13,14 @@
         >
 
     <EditText
+        android:id="@+id/etFragmentUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="UserName"
         />
 
     <TextView
+        android:id="@+id/tvScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -26,6 +28,7 @@
         />
 
         <TextView
+            android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -43,17 +46,20 @@
         >
 
         <Button
+            android:id="@+id/btAddPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD PICTURE"
             />
         <ImageView
+            android:id="@+id/ivProfilImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             />
 
         <Button
+            android:id="@+id/btAddUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD USER"
