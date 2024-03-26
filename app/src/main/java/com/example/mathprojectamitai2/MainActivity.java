@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -141,7 +142,11 @@ import android.widget.Toast;
         btShowAllUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
+                trans.add(R.id.frameLayout, new ShowUsersFragment());
+
+                trans.commit();
             }
         });
 
