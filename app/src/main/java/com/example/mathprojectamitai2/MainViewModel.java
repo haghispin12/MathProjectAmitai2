@@ -41,9 +41,13 @@ public class MainViewModel extends ViewModel {
         boolean b1 = exercise.check(answer);
      return b1;
     }
+    public void updateRate(int rate){
+        user.setRate(rate);
+    }
 
     public void updateName(String name){
         user.setName(name);
+
     }
 
 }

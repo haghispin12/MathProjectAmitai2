@@ -36,9 +36,10 @@ import android.widget.Toast;
 
     private Button btShowAllUsers;
 
-     private MainViewModel viewModel;
+    private MainViewModel viewModel;
 
-     private Button btrate;
+    private Button btrate;
+    private FragmentTransaction trans;
 
      ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
              new ActivityResultContracts.StartActivityForResult(),
@@ -46,6 +47,7 @@ import android.widget.Toast;
                  @Override
                  public void onActivityResult(ActivityResult result) {
                      int myRate = result.getData().getIntExtra("RateKey", -1);
+                     viewModel.user.setRate(myRate);
                      Toast.makeText(MainActivity.this, myRate+"", Toast.LENGTH_LONG).show();
 
                  }
@@ -63,6 +65,7 @@ import android.widget.Toast;
         setContentView(R.layout.activity_main);
         initview();
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        trans = getSupportFragmentManager().beginTransaction();
         viewModel.vNum1.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -142,7 +145,7 @@ import android.widget.Toast;
         btShowAllUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
 
                 trans.add(R.id.frameLayout, new ShowUsersFragment());
 

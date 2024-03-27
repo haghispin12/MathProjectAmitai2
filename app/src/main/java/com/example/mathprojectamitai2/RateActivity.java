@@ -33,7 +33,7 @@ public class RateActivity extends AppCompatActivity {
         sbRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                tvNumOfRate.setText(seekBar.getProgress()+"");
             }
 
             @Override
@@ -43,7 +43,7 @@ public class RateActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tvNumOfRate.setText(seekBar.getProgress()+"");
+
             }
         });
 
