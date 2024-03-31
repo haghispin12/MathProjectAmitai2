@@ -1,10 +1,20 @@
 package com.example.mathprojectamitai2;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +30,19 @@ public class ShowUsersFragment extends Fragment {
     private TextView tvScore;
     private TextView tvRating;
     private Button btAddPicture;
-    private ImageView ivProfilImage;
+    private ImageView ivProfileImage;
     private Button btAddUser;
-
+    Uri uri;
+    ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        ivProfileImage.setImageURI(uri);
+                    }
+                }
+            });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,13 +67,19 @@ public class ShowUsersFragment extends Fragment {
         tvScore = view.findViewById(R.id.tvScore);
         tvRating = view.findViewById(R.id.tvRating);
         btAddPicture = view.findViewById(R.id.btAddPicture);
-        ivProfilImage = view.findViewById(R.id.ivProfilImage);
+        ivProfileImage = view.findViewById(R.id.ivProfilImage);
         btAddUser = view.findViewById(R.id.btAddUser);
 
         btAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+                uri = requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                startCamera.launch(cameraIntent);
             }
         });
         btAddUser.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +89,7 @@ public class ShowUsersFragment extends Fragment {
             }
         });
 
-        tvRating.setText(mainViewModel.user.getRate()+"");
+        tvRating.setText("Rate:" + mainViewModel.user.getRate()+"");
         etFragmentUserName.setText(mainViewModel.user.getName());
     }
 }
