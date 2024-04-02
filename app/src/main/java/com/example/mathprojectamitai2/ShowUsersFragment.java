@@ -33,6 +33,8 @@ public class ShowUsersFragment extends Fragment {
     private ImageView ivProfileImage;
     private Button btAddUser;
     Uri uri;
+    private Button btBackMain;
+
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -69,6 +71,7 @@ public class ShowUsersFragment extends Fragment {
         btAddPicture = view.findViewById(R.id.btAddPicture);
         ivProfileImage = view.findViewById(R.id.ivProfilImage);
         btAddUser = view.findViewById(R.id.btAddUser);
+        btBackMain = view.findViewById(R.id.btBackMain);
 
         btAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +92,16 @@ public class ShowUsersFragment extends Fragment {
             }
         });
 
+
         tvRating.setText("Rate:" + mainViewModel.user.getRate()+"");
         etFragmentUserName.setText(mainViewModel.user.getName());
+
+        btBackMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            
+
+            }
+        });
     }
 }

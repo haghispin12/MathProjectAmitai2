@@ -39,7 +39,9 @@ import android.widget.Toast;
     private MainViewModel viewModel;
 
     private Button btrate;
+
     private FragmentTransaction trans;
+    private TextView tvWhatIsScore;
 
      ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
              new ActivityResultContracts.StartActivityForResult(),
@@ -97,13 +99,14 @@ import android.widget.Toast;
         btsave = findViewById(R.id.btSave);
         btShowAllUsers = findViewById(R.id.btShowAllUsers);
         btrate = findViewById(R.id.btRate);
+        tvWhatIsScore = findViewById(R.id.tvWhatIsScore);
 
         btChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             viewModel.vChallenge();
             update();
-            //hag
+
             }
         });
 
@@ -112,6 +115,7 @@ import android.widget.Toast;
             public void onClick(View view) {
             viewModel.vUntiltwenty();
              update();
+
             }
         });
 
@@ -127,11 +131,15 @@ import android.widget.Toast;
             @Override
             public void onClick(View view) {
                 boolean b=viewModel.vCheck(etAnswer.getText().toString());
-                if (b)
+                if (b) {
                     Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
-
-            else
+                    viewModel.setScore(viewModel.Type);
+                    tvWhatIsScore.setText("Score:" + viewModel.getScore());
+                } else
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
+
+
+
             }
         });
 

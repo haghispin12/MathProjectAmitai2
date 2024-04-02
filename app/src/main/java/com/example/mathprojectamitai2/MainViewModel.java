@@ -9,6 +9,7 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum2;
     Exercise exercise;
     User user;
+    int Type;
 
 
     //constructor
@@ -23,18 +24,21 @@ public class MainViewModel extends ViewModel {
     exercise.setBtChallenge();
      vNum1.setValue(exercise.getNum1());
      vNum2.setValue(exercise.getNum2());
+     Type = 20;
     }
 
     public void vMultiplicationTable(){
     exercise.setBtMultiplicationTable();
     vNum1.setValue(exercise.getNum1());
     vNum2.setValue(exercise.getNum2());
+    Type = 10;
     }
 
     public void vUntiltwenty(){
     exercise.setBtUntiltwenty();
     vNum1.setValue(exercise.getNum1());
     vNum2.setValue(exercise.getNum2());
+    Type = 15;
     }
 
     public boolean vCheck(String answer) {
@@ -49,5 +53,16 @@ public class MainViewModel extends ViewModel {
         user.setName(name);
 
     }
+
+    public void setScore(int score){
+        int sc = user.getScore() + score;
+        user.setScore(sc);
+    }
+
+    public int getScore(){
+        return user.getScore();
+    }
+
+
 
 }
