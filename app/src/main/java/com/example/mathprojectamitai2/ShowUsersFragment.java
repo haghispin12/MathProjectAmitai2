@@ -95,11 +95,12 @@ public class ShowUsersFragment extends Fragment {
 
         tvRating.setText("Rate:" + mainViewModel.user.getRate()+"");
         etFragmentUserName.setText(mainViewModel.user.getName());
+        tvScore.setText("score:" + mainViewModel.user.getScore());
 
         btBackMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            
+                getActivity().onBackPressed();
 
             }
         });

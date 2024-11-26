@@ -154,10 +154,10 @@ import android.widget.Toast;
             @Override
             public void onClick(View view) {
 
-
-                trans.add(R.id.frameLayout, new ShowUsersFragment());
-
-                trans.commit();
+//              trans.add(R.id.frameLayout, new ShowUsersFragment());
+//              trans.commit();
+                Intent intent = new Intent(MainActivity.this, ShowUsersActivity.class);
+                startActivity(intent);
             }
         });
 
