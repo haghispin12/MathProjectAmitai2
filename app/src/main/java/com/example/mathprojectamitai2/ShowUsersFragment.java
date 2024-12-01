@@ -88,7 +88,6 @@ public class ShowUsersFragment extends Fragment {
         btAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
 
