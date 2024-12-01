@@ -156,7 +156,7 @@ import android.widget.Toast;
 
 //              trans.add(R.id.frameLayout, new ShowUsersFragment());
 //              trans.commit();
-                Intent intent = new Intent(MainActivity.this, ShowUsersActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShowAllFruitsActivity.class);
                 startActivity(intent);
             }
         });
