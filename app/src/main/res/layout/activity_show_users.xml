@@ -10,10 +10,18 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcShowUsers"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="50"
             tools:listitem="@layout/activity_show_users"
             />
-
+        <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/rcShowFruits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            tools:listitem="@layout/activity_show_users"
+                >
+        </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
 

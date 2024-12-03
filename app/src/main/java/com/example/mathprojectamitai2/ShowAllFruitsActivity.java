@@ -27,7 +27,7 @@ public class ShowAllFruitsActivity extends AppCompatActivity {
     }
     public void initview(){
        rcShowUsers = findViewById(R.id.rcShowUsers);
-
+       rcShowFruits = findViewById(R.id.rcShowFruits);
     }
 
 
