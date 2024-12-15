@@ -64,10 +64,10 @@ public class MainViewModel extends ViewModel {
 
     public long dbAddUser(Context context){
         DBHelper dbHelper = new DBHelper(context);
-        dbHelper.insert(user, context);
-       // Log.d("")
+        long id = dbHelper.insert(user, context);
+        Log.d("responseId", id+"");
 
-
+        return id;
 }
 
     public int getScore(){

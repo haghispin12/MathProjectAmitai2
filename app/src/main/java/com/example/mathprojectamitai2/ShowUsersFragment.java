@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ShowUsersFragment extends Fragment {
@@ -35,6 +36,7 @@ public class ShowUsersFragment extends Fragment {
     Uri uri;
     private Button btBackMain;
 
+
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -42,6 +44,7 @@ public class ShowUsersFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         ivProfileImage.setImageURI(uri);
+                        mainViewModel.user.setUri(uri);
                     }
                 }
             });
@@ -88,6 +91,11 @@ public class ShowUsersFragment extends Fragment {
         btAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            if (getActivity()!=null) {
+                long id = mainViewModel.dbAddUser(getActivity());
+                Toast.makeText(getActivity(), "insert row id" + id, Toast.LENGTH_SHORT).show();
+            }
+
             }
         });
 

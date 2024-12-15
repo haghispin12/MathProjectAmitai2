@@ -1,6 +1,7 @@
 
 package com.example.mathprojectamitai2;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.mathprojectamitai2.User;
 
@@ -120,28 +122,28 @@ public class DBHelper extends SQLiteOpenHelper {
 //    }
 //
 //    // return all rows in table
-//    public ArrayList<User> selectAll(){
-//        database = getReadableDatabase(); // get access to read the database
-//        ArrayList<User> users = new ArrayList<>();
-//        Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
-//        if (cursor.getCount() > 0) {
-//            while (cursor.moveToNext()) {
-//                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-//                int rating = cursor.getInt(cursor.getColumnIndex(COLUMN_RATE));
-//                int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
-//                byte[] bytes = cursor.getBlob(cursor.getColumnIndex(COLUMN_PICTURE));
-//
-//                Bitmap bitmap = getImage(bytes);
-//                long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-//                User user= new User(id,name,rating,bitmap,score);
-//                users.add(user);
-//            }
-//        }
-//        cursor.close();
-//        database.close();
-//        return users;
-//    }
-//
+    public ArrayList<User> selectAll(){
+       database = getReadableDatabase(); // get access to read the database
+        MutableLiveData<ArrayList<User>> users = new MutableLiveData<ArrayList<User>>();
+        Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                ("Range") String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+                ("Range") int rating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_RATE));
+                ("Range") int score = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SCORE));
+                ("Range") byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_PICTURE));
+
+                Bitmap bitmap = getImage(bytes);
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                User user= new User(name,rating,id, bitmap,score);
+                users.add(user);
+            }
+        }
+        cursor.close();
+        database.close();
+        return users;
+    }
+
 //    //
 //    // I prefer using this one...
 //    //
@@ -198,8 +200,8 @@ public class DBHelper extends SQLiteOpenHelper {
 //    }
 //
 //    // convert from byte array to bitmap
-//    private  Bitmap getImage(byte[] image) {
-//        return BitmapFactory.decodeByteArray(image, 0, image.length);
-//    }
+    private  Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
 
 }

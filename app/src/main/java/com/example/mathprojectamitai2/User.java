@@ -1,5 +1,6 @@
 package com.example.mathprojectamitai2;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class User {
@@ -7,6 +8,7 @@ public class User {
     private int score;
     private int rate;
     private long id;
+    private Bitmap bitmap;
     private Uri uri;
 
     public String getName() {
@@ -47,5 +49,21 @@ public class User {
 
     public void setUri(Uri uri) {
         this.uri = uri;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public User(String name, int score, int rate, long id, Bitmap bitmap) {
+        this.name = name;
+        this.score = score;
+        this.rate = rate;
+        this.id = id;
+        this.bitmap = bitmap;
     }
 }
