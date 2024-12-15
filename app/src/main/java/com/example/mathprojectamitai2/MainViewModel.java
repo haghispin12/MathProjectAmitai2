@@ -1,5 +1,8 @@
 package com.example.mathprojectamitai2;
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -58,6 +61,14 @@ public class MainViewModel extends ViewModel {
         int sc = user.getScore() + score;
         user.setScore(sc);
     }
+
+    public long dbAddUser(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        dbHelper.insert(user, context);
+       // Log.d("")
+
+
+}
 
     public int getScore(){
         return user.getScore();
