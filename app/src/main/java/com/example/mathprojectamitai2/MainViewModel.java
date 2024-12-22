@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+
 
 public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum1;
@@ -13,6 +15,8 @@ public class MainViewModel extends ViewModel {
     Exercise exercise;
     User user;
     int Type;
+    MutableLiveData<ArrayList<User>> users;
+
 
 
     //constructor
@@ -21,6 +25,7 @@ public class MainViewModel extends ViewModel {
         vNum2=new MutableLiveData<>();
         exercise = new Exercise();
         user = new User();
+        users = new MutableLiveData<ArrayList<User>>();
     }
 
     public void vChallenge(){
@@ -66,9 +71,13 @@ public class MainViewModel extends ViewModel {
         DBHelper dbHelper = new DBHelper(context);
         long id = dbHelper.insert(user, context);
         Log.d("responseId", id+"");
-
         return id;
 }
+
+    public void getUsers(Context context){
+        DBHelper dbHelper1 = new DBHelper(context);
+        users.setValue(dbHelper1.selectAll());
+    }
 
     public int getScore(){
         return user.getScore();

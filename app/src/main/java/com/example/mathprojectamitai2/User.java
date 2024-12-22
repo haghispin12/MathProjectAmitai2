@@ -11,6 +11,18 @@ public class User {
     private Bitmap bitmap;
     private Uri uri;
 
+    public User(String name, int rating, long id, Bitmap bitmap, int score) {
+        this.name=name;
+        this.rate=rating;
+        this.id=id;
+        this.bitmap=bitmap;
+        this.score=score;
+    }
+
+    public User(){
+
+    }
+
     public String getName() {
         return name;
     }
@@ -59,11 +71,5 @@ public class User {
         this.bitmap = bitmap;
     }
 
-    public User(String name, int score, int rate, long id, Bitmap bitmap) {
-        this.name = name;
-        this.score = score;
-        this.rate = rate;
-        this.id = id;
-        this.bitmap = bitmap;
-    }
+
 }

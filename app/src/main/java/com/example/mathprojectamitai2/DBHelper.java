@@ -124,14 +124,14 @@ public class DBHelper extends SQLiteOpenHelper {
 //    // return all rows in table
     public ArrayList<User> selectAll(){
        database = getReadableDatabase(); // get access to read the database
-        MutableLiveData<ArrayList<User>> users = new MutableLiveData<ArrayList<User>>();
+        ArrayList<User> users = new ArrayList<>();
         Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null, null); // cursor points at a certain row
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                ("Range") String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
-                ("Range") int rating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_RATE));
-                ("Range") int score = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SCORE));
-                ("Range") byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_PICTURE));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+                int rating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_RATE));
+                int score = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_SCORE));
+                byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_PICTURE));
 
                 Bitmap bitmap = getImage(bytes);
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID));
