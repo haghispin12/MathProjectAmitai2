@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyFruitsAdapter extends RecyclerView.Adapter<userAdapter.MyViewHolder> {
+public class userAdapter extends RecyclerView.Adapter<userAdapter.MyViewHolder> {
 
 
     public interface OnItemClickListener{
@@ -21,7 +21,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<userAdapter.MyViewHold
     private ArrayList<Fruit>fruits;
     private OnItemClickListener listener;
 
-    public MyFruitsAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener) {
+    public userAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener) {
         this.fruits = fruits;
         this.listener = listener;
     }
@@ -38,7 +38,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<userAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(fruits.get(position),listener);
+        holder.bind(User.get(position),listener);
     }
 
     @Override
@@ -51,24 +51,24 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<userAdapter.MyViewHold
         TextView tvFruitName;
         ImageView ivFruitImg;
 
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-        tvFruitName = itemView.findViewById(R.id.tvFruitName);
-        ivFruitImg = itemView.findViewById(R.id.ivfruitlmg);
-    }
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvFruitName = itemView.findViewById(R.id.tvFruitName);
+            ivFruitImg = itemView.findViewById(R.id.ivfruitlmg);
+        }
 
-    public void bind(final Fruit item, final OnItemClickListener listener){
-        tvFruitName.setText(item.getName());
-        ivFruitImg.setImageResource(item.getDrawable());
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onItemClick(item);
-            }
-        });
-    }
+        public void bind(final Fruit item, final OnItemClickListener listener){
+            tvFruitName.setText(item.getName());
+            ivFruitImg.setImageResource(item.getDrawable());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
 
-}
+    }
 
 
 

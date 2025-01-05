@@ -16,7 +16,7 @@
             tools:listitem="@layout/activity_show_users"
             />
         <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/rcShowFruits"
+           android:id="@+id/RCShowUsersFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"

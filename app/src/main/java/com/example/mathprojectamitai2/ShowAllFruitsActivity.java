@@ -40,7 +40,7 @@ public class ShowAllFruitsActivity extends AppCompatActivity {
         fruits.add(new Fruit("grapes", R.drawable.grapes));
         fruits.add(new Fruit("lemon", R.drawable.lemon));
 
-        MyFruitsAdapter myFruitsAdapter = new MyFruitsAdapter(fruits, new MyFruitsAdapter.OnItemClickListener() {
+        userAdapter myFruitsAdapter = new userAdapter(fruits, new userAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Fruit item) {
                 Toast.makeText(ShowAllFruitsActivity.this,item.getName(),Toast.LENGTH_SHORT).show();
