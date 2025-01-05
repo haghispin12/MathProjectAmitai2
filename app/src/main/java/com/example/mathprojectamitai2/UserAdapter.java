@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class userAdapter extends RecyclerView.Adapter<userAdapter.MyViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
 
 
     public interface OnItemClickListener{
-        void onItemClick(Fruit item);
+        void onItemClick(User item);
     }
 
-    private ArrayList<Fruit>fruits;
+    private ArrayList<User>users;
     private OnItemClickListener listener;
 
-    public userAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener) {
-        this.fruits = fruits;
+    public UserAdapter(ArrayList<User> users, OnItemClickListener listener) {
+        this.users = users;
         this.listener = listener;
     }
 
@@ -38,28 +38,31 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(User.get(position),listener);
+        holder.bind(users.get(position),listener);
     }
 
     @Override
     public int getItemCount() {
-        return fruits.size();
+        return users.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvFruitName;
-        ImageView ivFruitImg;
+        TextView tvUserName;
+        TextView tvUserRate;
+        ImageView ivUserPic;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvFruitName = itemView.findViewById(R.id.tvFruitName);
-            ivFruitImg = itemView.findViewById(R.id.ivfruitlmg);
+            tvUserName = itemView.findViewById(R.id.tvUserName);
+            tvUserRate = itemView.findViewById(R.id.tvUserRate);
+            ivUserPic = itemView.findViewById(R.id.ivUserPic);
         }
 
-        public void bind(final Fruit item, final OnItemClickListener listener){
-            tvFruitName.setText(item.getName());
-            ivFruitImg.setImageResource(item.getDrawable());
+        public void bind(final User item, final OnItemClickListener listener){
+            tvUserName.setText(item.getName());
+            tvUserRate.setText(item.getRate());
+            ivUserPic.setImageBitmap(item.getBitmap());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

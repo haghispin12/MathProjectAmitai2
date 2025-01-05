@@ -26,7 +26,6 @@ public class ShowAllFruitsActivity extends AppCompatActivity {
 
     }
     public void initview(){
-       rcShowUsers = findViewById(R.id.rcShowUsers);
        rcShowFruits = findViewById(R.id.rcShowFruits);
     }
 
@@ -40,7 +39,7 @@ public class ShowAllFruitsActivity extends AppCompatActivity {
         fruits.add(new Fruit("grapes", R.drawable.grapes));
         fruits.add(new Fruit("lemon", R.drawable.lemon));
 
-        userAdapter myFruitsAdapter = new userAdapter(fruits, new userAdapter.OnItemClickListener() {
+        MyFruitsAdapter myFruitsAdapter = new MyFruitsAdapter(fruits, new MyFruitsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Fruit item) {
                 Toast.makeText(ShowAllFruitsActivity.this,item.getName(),Toast.LENGTH_SHORT).show();
@@ -49,7 +48,6 @@ public class ShowAllFruitsActivity extends AppCompatActivity {
         rcShowFruits.setLayoutManager(new LinearLayoutManager(this));
         rcShowFruits.setAdapter(myFruitsAdapter);
         rcShowFruits.setHasFixedSize(true);
-
     }
 
 

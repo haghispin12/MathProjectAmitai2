@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 
-public class MainViewModel extends ViewModel {
+public class
+MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum1;
     MutableLiveData<Integer> vNum2;
     Exercise exercise;
@@ -72,6 +73,11 @@ public class MainViewModel extends ViewModel {
         long id = dbHelper.insert(user, context);
         Log.d("responseId", id+"");
         return id;
+}
+
+public void dbSellectAll(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        users.setValue(dbHelper.selectAll());
 }
 
     public void getUsers(Context context){

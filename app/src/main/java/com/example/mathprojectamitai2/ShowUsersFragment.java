@@ -14,6 +14,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ public class ShowUsersFragment extends Fragment {
     private Button btAddUser;
     Uri uri;
     private Button btBackMain;
+    private RecyclerView rcShowUsers;
 
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -69,11 +72,27 @@ public class ShowUsersFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<User> users) {
                 int t =10;
+                mainViewModel.users.observe(requireActivity(), new Observer<ArrayList<User>>() {
+                    @Override
+                    public void onChanged(ArrayList<User> users) {
+                        UserAdapter fa = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(User item) {
+
+                            }
+
+                        });
+                        rcShowUsers.setLayoutManager(new LinearLayoutManager(requireActivity()));
+                        rcShowUsers.setAdapter(fa);
+                        rcShowUsers.setHasFixedSize(true);
+                    }
+                });
+                mainViewModel.dbSellectAll(getActivity());
             }
-        });
-        mainViewModel.getUsers(getActivity());
-        initview(view);
-        return view;
+
+
+            initview(view);
+            return view;
     }
 
     public void initview(View view) {

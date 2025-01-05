@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyFruitsAdapter extends RecyclerView.Adapter<userAdapter.MyViewHolder> {
+public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyViewHolder> {
 
 
     public interface OnItemClickListener{

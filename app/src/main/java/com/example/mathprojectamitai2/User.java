@@ -2,6 +2,8 @@ package com.example.mathprojectamitai2;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class User {
     private String name;
@@ -10,6 +12,12 @@ public class User {
     private long id;
     private Bitmap bitmap;
     private Uri uri;
+    private ImageView ivUserPic;
+    private TextView tvUserName;
+    private TextView tvUserRate;
+
+
+
 
     public User(String name, int rating, long id, Bitmap bitmap, int score) {
         this.name=name;
