@@ -55,8 +55,8 @@
             />
         <ImageView
             android:id="@+id/ivProfilImage"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             />
 
@@ -74,7 +74,7 @@
             />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcShowUsers"
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_user"
             />

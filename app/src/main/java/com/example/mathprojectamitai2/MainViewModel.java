@@ -77,7 +77,8 @@ MainViewModel extends ViewModel {
 
 public void dbSellectAll(Context context){
         DBHelper dbHelper = new DBHelper(context);
-        users.setValue(dbHelper.selectAll());
+    ArrayList<User> users1=dbHelper.selectAll();
+            users.setValue(users1);
 }
 
     public void getUsers(Context context){
