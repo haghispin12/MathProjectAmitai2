@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.ClipData;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,7 +36,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class ShowUsersFragment extends Fragment {
+public class ShowUsersFragment extends Fragment implements MenuProvider {
     MainViewModel mainViewModel;
     private EditText etFragmentUserName;
     private TextView tvScore;
@@ -41,6 +47,9 @@ public class ShowUsersFragment extends Fragment {
     Uri uri;
     private Button btBackMain;
     private RecyclerView rcShowUsers;
+    private MenuItem itemDelete;
+    private MenuItem itemEdit;
+
 
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -54,6 +63,7 @@ public class ShowUsersFragment extends Fragment {
                     }
                 }
             });
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +89,13 @@ public class ShowUsersFragment extends Fragment {
                         UserAdapter fa = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(User item) {
+                                int n=10;
+                                itemDelete.setVisible(true);
+                                itemEdit.setVisible(true);
+                                mainViewModel.user = item;
+                                btAddUser.setText(mainViewModel.user.getName());
+                                tvScore.setText(mainViewModel.user.getScore());
+                                tvRating.setText(mainViewModel.user.getRate()+"");
 
                             }
 
@@ -86,6 +103,8 @@ public class ShowUsersFragment extends Fragment {
                         rcShowUsers.setLayoutManager(new LinearLayoutManager(requireActivity()));
                         rcShowUsers.setAdapter(fa);
                         rcShowUsers.setHasFixedSize(true);
+
+
                     }
                 });
 
@@ -146,6 +165,32 @@ public class ShowUsersFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.main_menu, menu);
+        itemDelete = menu.findItem(R.id.action_delete);
+        itemDelete.setVisible(false);
+        itemEdit = menu.findItem(R.id.action_edit);
+        itemEdit.setVisible(false);
+        super.onCreateOptionsMenu(menu,menuInflater);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id){
+            case R.id.action_delete:
+
+                return true;
+
+            case R.id.action_edit:
+
+                return true;
+        }
+
+        return false;
     }
 }
 
