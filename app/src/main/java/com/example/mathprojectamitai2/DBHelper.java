@@ -99,27 +99,27 @@ public class DBHelper extends SQLiteOpenHelper {
 //
 //    }
 //
-//    public void deleteById(long id )
-//    {
-//        database = getWritableDatabase(); // get access to write e data
-//        database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
-//        database.close(); // close the database
-//    }
+    public void deleteById(long id )
+    {
+        database = getWritableDatabase(); // get access to write e data
+        database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
+        database.close(); // close the database
+    }
 //
 //    // update a specific user
-//    public void update(User user)
-//    {
-//        database = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_ID, user.getId());
-//        values.put(COLUMN_NAME, user.getUserName());
-//        values.put(COLUMN_RATE, user.getRating());
-//        // stored as Binary Large OBject ->  BLOB
-//        values.put(COLUMN_PICTURE, getBytes(user.getBitmap()));
-//        database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
-//        database.close();
-//
-//    }
+    public void update(User user)
+    {
+        database = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, user.getId());
+        values.put(COLUMN_NAME, user.getName());
+        values.put(COLUMN_RATE, user.getRate());
+        // stored as Binary Large OBject ->  BLOB
+        values.put(COLUMN_PICTURE, getBytes(user.getBitmap()));
+        database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
+        database.close();
+
+    }
 //
 //    // return all rows in table
     public ArrayList<User> selectAll(){
@@ -193,12 +193,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // convert from bitmap to byte array
-//    private  byte[] getBytes(Bitmap bitmap) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        return stream.toByteArray();
-//    }
-//
+    private  byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+
 //    // convert from byte array to bitmap
     private  Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);

@@ -15,6 +15,7 @@ MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum2;
     Exercise exercise;
     User user;
+    User currentUser;
     int Type;
     MutableLiveData<ArrayList<User>> users;
 
@@ -75,20 +76,39 @@ MainViewModel extends ViewModel {
         return id;
 }
 
+        public void dbupdate(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        dbHelper.update(currentUser);
+        dbSellectAll(context);
+        }
+
+        public void dbDelete(Context context){
+        DBHelper dbHelper = new DBHelper(context);
+        dbHelper.deleteById(currentUser.getId());
+        dbSellectAll(context);
+        }
+
+
 public void dbSellectAll(Context context){
         DBHelper dbHelper = new DBHelper(context);
     ArrayList<User> users1=dbHelper.selectAll();
             users.setValue(users1);
+
 }
 
     public void getUsers(Context context){
         DBHelper dbHelper1 = new DBHelper(context);
         users.setValue(dbHelper1.selectAll());
+
     }
 
     public int getScore(){
         return user.getScore();
     }
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
 
 
 
