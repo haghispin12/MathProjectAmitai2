@@ -1,7 +1,6 @@
 
-package com.example.mathprojectamitai2;
+package com.example.mathprojectamitai2.MathPro;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,16 +12,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.mathprojectamitai2.User;
 
 //import com.hag.mathexerciseproject.classesModel.User;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {

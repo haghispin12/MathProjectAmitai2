@@ -1,4 +1,4 @@
-package com.example.mathprojectamitai2;
+package com.example.mathprojectamitai2.MathPro;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mathprojectamitai2.R;
 
 import java.util.ArrayList;
 

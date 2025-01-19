@@ -1,4 +1,4 @@
-package com.example.mathprojectamitai2;
+package com.example.mathprojectamitai2.MathPro;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -7,6 +7,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mathprojectamitai2.R;
 
 import java.util.ArrayList;
 

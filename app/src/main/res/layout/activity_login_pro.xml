@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".LoginProActivity"
+    android:background="#6096CF">
+
+
+
+    <Button
+        android:id="@+id/btLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="הרשמה"
+        android:textSize="20dp"
+    />
+    <Button
+        android:id="@+id/btConnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="התחברות"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tvNameOfGame"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="100dp"
+        android:text="בור ועם הארץ"
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="#FF0707"
+        />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="מייל"
+        android:gravity="center"
+        android:textSize="40dp"
+        />
+    <EditText
+        android:id="@+id/etPassowrd"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="סיסמא"
+        android:gravity="center"
+        android:textSize="40dp"
+        />
+    <Button
+        android:id="@+id/btSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:text="הרשמה"
+        android:textSize="20dp"
+        android:backgroundTint="#673AB7"
+        />
+
+
+
+
+
+</LinearLayout>

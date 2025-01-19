@@ -1,9 +1,8 @@
-package com.example.mathprojectamitai2;
+package com.example.mathprojectamitai2.MathPro;
 
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +33,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mathprojectamitai2.R;
 
 import java.util.ArrayList;
 

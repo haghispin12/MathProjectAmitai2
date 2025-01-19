@@ -13,17 +13,31 @@
         android:theme="@style/Theme.MathProjectAmitai2"
         tools:targetApi="31">
         <activity
-            android:name=".ShowAllFruitsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RateActivity"
+            android:name=".PreviewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginProActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MathPro.ShowAllFruitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MathPro.RateActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MathPro.LoginActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MathPro.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

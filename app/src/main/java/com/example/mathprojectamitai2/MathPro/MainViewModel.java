@@ -1,4 +1,4 @@
-package com.example.mathprojectamitai2;
+package com.example.mathprojectamitai2.MathPro;
 
 import android.content.Context;
 import android.util.Log;
