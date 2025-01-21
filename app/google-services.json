@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565813948547",
+    "project_id": "mapsbattle-dd6c0",
+    "storage_bucket": "mapsbattle-dd6c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565813948547:android:20723b4b967a104aa06bb6",
+        "android_client_info": {
+          "package_name": "com.example.mathprojectamitai2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxVawm9swRaeY5cBRacWHAHztJG50QyY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

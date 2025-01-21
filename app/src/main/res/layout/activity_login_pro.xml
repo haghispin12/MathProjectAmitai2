@@ -8,7 +8,8 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".LoginProActivity"
-    android:background="#6096CF">
+    android:background="@drawable/AppBackground"
+    >
 
 
 
@@ -45,6 +46,7 @@
         android:hint="מייל"
         android:gravity="center"
         android:textSize="40dp"
+        android:textColorHint="@color/white"
         />
     <EditText
         android:id="@+id/etPassowrd"
@@ -53,6 +55,7 @@
         android:hint="סיסמא"
         android:gravity="center"
         android:textSize="40dp"
+        android:textColorHint="@color/white"
         />
     <Button
         android:id="@+id/btSubmit"

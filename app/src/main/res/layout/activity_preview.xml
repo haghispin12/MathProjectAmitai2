@@ -8,15 +8,15 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".PreviewActivity"
-    android:background="#6096CF"
+    android:background="@drawable/AppBackground"
     >
 
     <Button
         android:id="@+id/btInvite"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:text="יצירת משחק"
-        android:textSize="50dp"
+        android:textSize="30dp"
         />
     <TextView
         android:id="@+id/tvIdGame"
@@ -24,15 +24,15 @@
         android:layout_height="65dp"
         android:text="IdGame: "
         android:textSize="30dp"
-        android:textAlignment="center"
-        android:visibility="gone"
+
+
         />
     <Button
         android:id="@+id/btGame"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:text="הצטרפות"
-        android:textSize="50dp"
+        android:textSize="30dp"
         />
 
     <EditText
@@ -43,12 +43,13 @@
         android:text="ID: "
         android:textSize="30dp"
         android:textAlignment="center"
+        android:textColor="@color/white"
         />
 
     <Button
         android:id="@+id/btJoinGame"
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:text="OK"
         android:textSize="30dp"
         />
