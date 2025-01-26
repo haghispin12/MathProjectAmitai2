@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.Firebase;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginProActivity extends AppCompatActivity {
@@ -27,6 +28,8 @@ public class LoginProActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_pro);
         initview();
+        FirebaseApp.initializeApp(this);
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int n=10;
     }

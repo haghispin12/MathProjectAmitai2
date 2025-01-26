@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".LoginProActivity"
-    android:background="@drawable/AppBackground"
+    android:background="@drawable/appbackground"
     >
 
 
