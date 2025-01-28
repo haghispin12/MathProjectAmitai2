@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginProActivity extends AppCompatActivity {
@@ -20,6 +22,8 @@ public class LoginProActivity extends AppCompatActivity {
     private EditText etPassowrd;
     private Button btSubmit;
 
+    private FirebaseAuth auth;
+
 
 
 
@@ -28,10 +32,20 @@ public class LoginProActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_pro);
         initview();
-        FirebaseApp.initializeApp(this);
+        //FirebaseApp.initializeApp(this);
         //FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        int n=10;
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        int n=10;
+         auth = FirebaseAuth.getInstance();
+         if(auth.getCurrentUser()!=null){
+            startGame();
+         }
+    }
+
+    private void startGame(){
+        Intent inn = new Intent(this, PreviewActivity.class);
+        inn.putExtra("userName",auth.getCurrentUser().getEmail());
+        startActivity(inn);
     }
 
 
