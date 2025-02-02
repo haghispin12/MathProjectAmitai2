@@ -1,5 +1,7 @@
 package com.example.mathprojectamitai2;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,6 +44,8 @@ public class LoginProActivity extends AppCompatActivity {
          }
     }
 
+
+
     private void startGame(){
         Intent inn = new Intent(this, PreviewActivity.class);
         inn.putExtra("userName",auth.getCurrentUser().getEmail());
@@ -77,6 +81,12 @@ public class LoginProActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
     }
 
 
