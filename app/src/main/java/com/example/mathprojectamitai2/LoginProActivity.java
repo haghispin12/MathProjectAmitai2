@@ -5,9 +5,11 @@ import static androidx.core.content.ContextCompat.startActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.example.mathprojectamitai2.MathPro.MainActivity;
 import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -48,6 +51,7 @@ public class LoginProActivity extends AppCompatActivity {
          if(auth.getCurrentUser()!=null){
             startGame();
          }
+
     }
 
 
@@ -56,6 +60,7 @@ public class LoginProActivity extends AppCompatActivity {
         Intent inn = new Intent(this, PreviewActivity.class);
         inn.putExtra("userName",auth.getCurrentUser().getEmail());
         startActivity(inn);
+
     }
 
 
@@ -92,10 +97,9 @@ public class LoginProActivity extends AppCompatActivity {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Log in");
         arrayList.add("sign in");
-
-
-
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        spLogin.setAdapter(adapter);
 
     }
 
