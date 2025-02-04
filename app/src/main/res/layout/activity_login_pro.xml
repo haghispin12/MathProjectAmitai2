@@ -12,32 +12,29 @@
     >
 
 
-
-    <Button
-        android:id="@+id/btLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="הרשמה"
-        android:textSize="20dp"
-    />
-    <Button
-        android:id="@+id/btConnected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="התחברות"
-        android:textSize="20dp"
-        />
-
     <TextView
         android:id="@+id/tvNameOfGame"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginBottom="100dp"
         android:text="בור ועם הארץ"
         android:textSize="50dp"
         android:textAlignment="center"
         android:textColor="#FF0707"
+        android:fontFamily="sans-serif-medium"
         />
+
+    <Spinner
+        android:id="@+id/spLogin"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#673AB7"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+
+
+        />
+
+
 
     <EditText
         android:id="@+id/etEmail"
