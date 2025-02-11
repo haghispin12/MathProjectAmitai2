@@ -76,7 +76,7 @@ public class LoginProActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //אימות והרשמה
             }
         });
 
@@ -86,6 +86,7 @@ public class LoginProActivity extends AppCompatActivity {
                 String item = adapterView.getItemAtPosition(position).toString();
                 Toast.makeText(LoginProActivity.this, "sellected: " + item, Toast.LENGTH_LONG).show();
 
+                //שינוי טקסט
             }
 
             @Override
