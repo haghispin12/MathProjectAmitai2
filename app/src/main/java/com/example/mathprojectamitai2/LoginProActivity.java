@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mathprojectamitai2.MathPro.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -58,12 +61,13 @@ public class LoginProActivity extends AppCompatActivity {
 
     private void startGame(){
         Intent inn = new Intent(this, PreviewActivity.class);
-        inn.putExtra("userName",auth.getCurrentUser().getEmail());
+        inn.putExtra("userName",auth.getCurrentUser().getEmail().toString());
         startActivity(inn);
 
     }
 
 
+    boolean isRegister = true;
     public void initview(){
 
         tvNameOfGame = findViewById(R.id.tvNameOfGame);
@@ -77,6 +81,34 @@ public class LoginProActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //אימות והרשמה
+                if(isRegister == true){
+
+                    auth.createUserWithEmailAndPassword(etEmail.getText().toString(),etPassowrd.getText().toString()).addOnCompleteListener(LoginProActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(LoginProActivity.this, "Registion success.", Toast.LENGTH_SHORT).show();
+                                startGame();
+                            }else{
+                                Toast.makeText(LoginProActivity.this, "Registion failed.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+                }
+                if(isRegister == false){
+                    auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassowrd.getText().toString()).addOnCompleteListener(LoginProActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(LoginProActivity.this, "Authentication success.", Toast.LENGTH_SHORT).show();
+                                startGame();
+                            }else{
+                                Toast.makeText(LoginProActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -87,6 +119,15 @@ public class LoginProActivity extends AppCompatActivity {
                 Toast.makeText(LoginProActivity.this, "sellected: " + item, Toast.LENGTH_LONG).show();
 
                 //שינוי טקסט
+                if(item.equals("sign up")) {
+                    isRegister=true;
+                    btSubmit.setText("הרשמה");
+                }if (item.equals("Log in")) {
+                    isRegister = false;
+                    btSubmit.setText("כניסה");
+                }
+
+
             }
 
             @Override
@@ -96,8 +137,8 @@ public class LoginProActivity extends AppCompatActivity {
         });
 
         ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("sign up");
         arrayList.add("Log in");
-        arrayList.add("sign in");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         spLogin.setAdapter(adapter);

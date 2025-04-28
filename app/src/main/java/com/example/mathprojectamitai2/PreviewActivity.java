@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,10 @@ public class PreviewActivity extends AppCompatActivity {
         initview();
     }
 
+    private void checkMap(){
+        Intent inn = new Intent(this, pro_map.class);
+        startActivity(inn);
+    }
     public void initview(){
         btInvite = findViewById(R.id.btInvite);
         tvIdGame = findViewById(R.id.tvIdGame);
@@ -48,7 +53,7 @@ public class PreviewActivity extends AppCompatActivity {
         btJoinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                checkMap();
             }
         });
 
