@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
 import com.mapbox.maps.MapView;
+//import com.mapbox.maps.MapView;
 
 public class pro_map extends AppCompatActivity {
 
@@ -27,7 +28,13 @@ public class pro_map extends AppCompatActivity {
             return insets;
         });
 
-        mapView = new MapView(this);
+
+        mapView = findViewById(R.id.mapView);
+//        mapView.onCreate(savedInstanceState);
+//
+//        mapView.getMapAsync(new OnMapReadyCallback)
+
+//        mapView = new MapView(this);
 //        mapView.getMapboxMap().setCamera(CameraOptions.Builder()
 //                .center(Point.fromLngLat(-90.0,39.5)).pitch(0.0).zoom(2.0).bearing(0.0).build());
 
