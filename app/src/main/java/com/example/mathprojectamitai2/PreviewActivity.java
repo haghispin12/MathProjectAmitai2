@@ -39,9 +39,9 @@ public class PreviewActivity extends AppCompatActivity {
         btInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                public void GameMode(game games) {
-
-                }
+//                public void GameMode(game games) {
+//
+//                }
             }
         });
 
