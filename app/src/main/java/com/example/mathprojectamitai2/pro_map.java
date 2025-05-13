@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,12 +27,15 @@ import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 //import com.mapbox.maps.MapView;
+import com.mapbox.geojson.Point;
+import com.mapbox.turf.TurfMeasurement;
 
 public class pro_map extends AppCompatActivity {
 
 
 
     MapView mapView;
+    private final Point jerusalemPoint = Point.fromLngLat(35.2137, 31.7683);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +48,33 @@ public class pro_map extends AppCompatActivity {
 //            return insets;
 //        });
 
+
         mapView = findViewById(R.id.mapView);
 
-        mapView.setOn
-        //setMarker();
-        mapView.setOnDragListener(new View.OnDragListener() {
+        mapView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onDrag(View view, DragEvent dragEvent) {
-                setMarker();
-                return true;
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    Point centerPoint = mapView.getMapboxMap().getCameraState().getCenter();
+
+                    getCords();
+                    showCoordinatesAndDistance(centerPoint);
+
+                }
+                //getCords();
+
+                //setMarker();
+                return false;
             }
         });
+        //setMarker();
+//        mapView.setOnDragListener(new View.OnDragListener() {
+//            @Override
+//            public boolean onDrag(View view, DragEvent dragEvent) {
+//                setMarker();
+//                return true;
+//            }
+//        });
 
         if (mapView != null){
             mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
@@ -66,10 +86,26 @@ public class pro_map extends AppCompatActivity {
         }
 
     }
+    private double calculateDistance(Point from, Point to) {
+        return TurfMeasurement.distance(from, to);
+    }
 
-    public  void getCords(){
+    private void showCoordinatesAndDistance(Point point) {
+        double distance = calculateDistance(point, jerusalemPoint);
+        String coordinates = "Latitude: " + point.latitude() +
+                ", Longitude: " + point.longitude() +
+                "\nDistance to Jerusalem: " + String.format("%.2f", distance) + " km";
+        Log.d("tag", coordinates);
+        //coordinatesTextView.setText(coordinates);
+    }
+
+    public  Point getCords(){
         double latitude = mapView.getMapboxMap().getCameraState().getCenter().latitude();
         double longitude = mapView.getMapboxMap().getCameraState().getCenter().longitude();
+        String message = "Latitude: " + latitude + ", Longitude: " + longitude;
+        Log.d("TAG", message);
+        Point point = Point.fromLngLat(longitude, latitude);
+        return point;
     }
 
 
@@ -78,8 +114,6 @@ public class pro_map extends AppCompatActivity {
 
         double latitude = mapView.getMapboxMap().getCameraState().getCenter().latitude();
         double longitude = mapView.getMapboxMap().getCameraState().getCenter().longitude();
-
-
 
         String message = "Latitude: " + latitude + ", Longitude: " + longitude;
 

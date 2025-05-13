@@ -49,6 +49,11 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation 'com.mapbox.maps:android:11.11.0'
     implementation 'com.mapbox.extension:maps-compose:11.11.0'
+
+
+   // implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:10.14.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:6.5.0'
+
     //implementation ("com.mapbox.mapboxsdk:mapbox-android-sdk:9.5.0")
     //implementation 'com.google.firebase:firebase-core:21.1.1'
     //implementation 'com.google.firebase:firebase-core:20.0.1'
