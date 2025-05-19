@@ -19,6 +19,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
 import com.mapbox.maps.MapView;
@@ -29,6 +33,9 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 //import com.mapbox.maps.MapView;
 import com.mapbox.geojson.Point;
 import com.mapbox.turf.TurfMeasurement;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class pro_map extends AppCompatActivity {
 
@@ -47,6 +54,27 @@ public class pro_map extends AppCompatActivity {
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 //            return insets;
 //        });
+
+        ArrayList<Locations> locations = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    if(documentSnapshot.exists()){
+                        String name = documentSnapshot.getString("name");
+                        double latitiude = documentSnapshot.getDouble("latitude");
+                        double longitude = documentSnapshot.getDouble("longitude");
+                        Locations location1 = new Locations(name, latitiude, longitude);
+                        locations.add(location1);
+                    }
+                }
+                int n=getRndomIndex(locations);
+                Log.d("random",n+"");
+            }
+        });
+
+
+
 
 
         mapView = findViewById(R.id.mapView);
@@ -92,10 +120,10 @@ public class pro_map extends AppCompatActivity {
 
     private void showCoordinatesAndDistance(Point point) {
         double distance = calculateDistance(point, jerusalemPoint);
-        String coordinates = "Latitude: " + point.latitude() +
-                ", Longitude: " + point.longitude() +
-                "\nDistance to Jerusalem: " + String.format("%.2f", distance) + " km";
-        Log.d("tag", coordinates);
+//        String coordinates = "Latitude: " + point.latitude() +
+//                ", Longitude: " + point.longitude() +
+//                "\nDistance to Jerusalem: " + String.format("%.2f", distance) + " km";
+//        Log.d("tag", coordinates);
         //coordinatesTextView.setText(coordinates);
     }
 
@@ -108,7 +136,10 @@ public class pro_map extends AppCompatActivity {
         return point;
     }
 
-
+    public int getRndomIndex(ArrayList<Locations> locations){
+        Random random = new Random();
+        return random.nextInt(locations.size());
+    }
 
     public void setMarker(){
 
