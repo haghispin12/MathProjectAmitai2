@@ -2,36 +2,25 @@ package com.example.mathprojectamitai2;
 
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.helper.widget.Layer;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mapbox.geojson.Point;
-import com.mapbox.maps.CameraOptions;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
-import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 //import com.mapbox.maps.MapView;
-import com.mapbox.geojson.Point;
 import com.mapbox.turf.TurfMeasurement;
 
 import java.util.ArrayList;
@@ -42,18 +31,31 @@ public class pro_map extends AppCompatActivity {
 
 
     MapView mapView;
-    private final Point jerusalemPoint = Point.fromLngLat(35.2137, 31.7683);
+    private TextView tvNameOfCity;
+
+    private Button btmyButton;
+
+    Locations myLocation;
+    private  Point cityPoint = Point.fromLngLat(35.2137, 31.7683);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        initview();
         setContentView(R.layout.activity_pro_map);
+        tvNameOfCity.setText(myLocation.getName());
+
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 //            return insets;
 //        });
+
+        tvNameOfCity.setText(myLocation.getName());
+
+
+
 
         ArrayList<Locations> locations = new ArrayList<>();
         FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -68,8 +70,12 @@ public class pro_map extends AppCompatActivity {
                         locations.add(location1);
                     }
                 }
+
                 int n=getRndomIndex(locations);
+                myLocation = locations.get(n);
                 Log.d("random",n+"");
+                cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
+                //locations.get(n).getLatitiude();
             }
         });
 
@@ -77,24 +83,22 @@ public class pro_map extends AppCompatActivity {
 
 
 
-        mapView = findViewById(R.id.mapView);
+                mapView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                            Point centerPoint = mapView.getMapboxMap().getCameraState().getCenter();
 
-        mapView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Point centerPoint = mapView.getMapboxMap().getCameraState().getCenter();
+                            getCords();
+                            showCoordinatesAndDistance(centerPoint);
 
-                    getCords();
-                    showCoordinatesAndDistance(centerPoint);
+                        }
+                        //getCords();
 
-                }
-                //getCords();
-
-                //setMarker();
-                return false;
-            }
-        });
+                        //setMarker();
+                        return false;
+                    }
+                });
         //setMarker();
 //        mapView.setOnDragListener(new View.OnDragListener() {
 //            @Override
@@ -114,17 +118,35 @@ public class pro_map extends AppCompatActivity {
         }
 
     }
+
+    public void initview(){
+        mapView = findViewById(R.id.mapView);
+        tvNameOfCity = findViewById(R.id.tvNameOfCity);
+        btmyButton = findViewById(R.id.btmyButton);
+
+        btmyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCoordinatesAndDistance(cityPoint);
+
+                tvNameOfCity.setText(myLocation.getName());
+            }
+        });
+
+
+
+    }
     private double calculateDistance(Point from, Point to) {
         return TurfMeasurement.distance(from, to);
     }
 
     private void showCoordinatesAndDistance(Point point) {
-        double distance = calculateDistance(point, jerusalemPoint);
-//        String coordinates = "Latitude: " + point.latitude() +
-//                ", Longitude: " + point.longitude() +
-//                "\nDistance to Jerusalem: " + String.format("%.2f", distance) + " km";
-//        Log.d("tag", coordinates);
-        //coordinatesTextView.setText(coordinates);
+        double distance = calculateDistance(point, cityPoint);
+        String coordinates = "Latitude: " + point.latitude() +
+                ", Longitude: " + point.longitude() +
+                "\nDistance to city: " + String.format("%.2f", distance) + " km";
+        Log.d("tag", coordinates);
+//        coordinatesTextView.setText(coordinates);
     }
 
     public  Point getCords(){

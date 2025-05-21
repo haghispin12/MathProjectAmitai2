@@ -5,6 +5,7 @@ private String name;
 private double latitiude;
 private double longitude;
 
+
 public Locations(String name, double latitiude, double longitude) {
 this.name = name;
 this.latitiude = latitiude;
