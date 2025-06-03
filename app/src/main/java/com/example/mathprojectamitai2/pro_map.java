@@ -36,15 +36,26 @@ public class pro_map extends AppCompatActivity {
     private Button btmyButton;
 
     Locations myLocation;
+
+//    private double range;
+
+    private int score;
+
+
+
+    private TextView tvCityScore;
+
+    private double distance;
+
+    private  ArrayList<Locations> locations = new ArrayList<>();
     private  Point cityPoint = Point.fromLngLat(35.2137, 31.7683);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        initview();
         setContentView(R.layout.activity_pro_map);
-        tvNameOfCity.setText(myLocation.getName());
+        initview();
 
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -52,12 +63,12 @@ public class pro_map extends AppCompatActivity {
 //            return insets;
 //        });
 
-        tvNameOfCity.setText(myLocation.getName());
 
 
 
 
-        ArrayList<Locations> locations = new ArrayList<>();
+
+
         FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -70,14 +81,12 @@ public class pro_map extends AppCompatActivity {
                         locations.add(location1);
                     }
                 }
+        randomCity();
 
-                int n=getRndomIndex(locations);
-                myLocation = locations.get(n);
-                Log.d("random",n+"");
-                cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
-                //locations.get(n).getLatitiude();
+
             }
         });
+
 
 
 
@@ -118,35 +127,59 @@ public class pro_map extends AppCompatActivity {
         }
 
     }
+    public void randomCity(){
+        int n=getRndomIndex(locations);
+        myLocation = locations.get(n);
+        Log.d("random",n+"");
+        cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
+        //locations.get(n).getLatitiude();
+        tvNameOfCity.setText("city is:" + myLocation.getName());
+
+    }
 
     public void initview(){
         mapView = findViewById(R.id.mapView);
         tvNameOfCity = findViewById(R.id.tvNameOfCity);
         btmyButton = findViewById(R.id.btmyButton);
+        tvCityScore = findViewById(R.id.tvCityScore);
+
+
 
         btmyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCoordinatesAndDistance(cityPoint);
-
-                tvNameOfCity.setText(myLocation.getName());
+                int range = (int) Math.round(distance);
+                Toast.makeText(pro_map.this, "range is:" + range, Toast.LENGTH_SHORT).show();
+                randomCity();
+                tvNameOfCity.setText("city is:" + myLocation.getName());
+                int x = calculateScore(distance, score);
+                int y = x + score;
+                tvCityScore.setText("score is:" + y);
+                //להוסיף ניקוד
             }
         });
 
-
-
     }
+
+
     private double calculateDistance(Point from, Point to) {
         return TurfMeasurement.distance(from, to);
     }
 
     private void showCoordinatesAndDistance(Point point) {
-        double distance = calculateDistance(point, cityPoint);
-        String coordinates = "Latitude: " + point.latitude() +
-                ", Longitude: " + point.longitude() +
+        distance = calculateDistance(point, cityPoint);
+        String coordinates =
                 "\nDistance to city: " + String.format("%.2f", distance) + " km";
         Log.d("tag", coordinates);
+        //Toast.makeText(pro_map.this, coordinates, Toast.LENGTH_SHORT).show();
 //        coordinatesTextView.setText(coordinates);
+    }
+
+    private void showDistance(){
+        String coordinates =
+                "\nDistance to city: " + String.format("%.2f", distance) + " km";
+        Log.d("tag", coordinates);
+        Toast.makeText(pro_map.this, coordinates, Toast.LENGTH_SHORT).show();
     }
 
     public  Point getCords(){
@@ -180,6 +213,24 @@ public class pro_map extends AppCompatActivity {
 //        map.flyTo(lat, lng);
     }
 
+    public int calculateScore(double distance, int score){
+        int range = (int) Math.round(distance);
+        if(range>=0 && range<=10)
+            score = 50;
+        else if (range>10 && range<=20)
+            score = 40;
+        else if (range>20 && range<=30)
+            score = 30;
+        else if (range>30 && range<=40)
+            score = 20;
+        else if (range>40 && range<=50)
+            score = 10;
+        else
+            score = 0;
+
+        return score;
+
+    }
 //    private void addAnnotationToMap() {
 //        Bitmap bitmap = bitmapFromDrwableRes(this, R.drawable.red_marker);
 //        if(bitmap != null && mapView != null){
