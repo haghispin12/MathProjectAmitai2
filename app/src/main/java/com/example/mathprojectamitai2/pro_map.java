@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -41,6 +42,7 @@ public class pro_map extends AppCompatActivity {
 
     private int score;
 
+    private int counter;
 
 
     private TextView tvCityScore;
@@ -153,13 +155,19 @@ public class pro_map extends AppCompatActivity {
                 randomCity();
                 tvNameOfCity.setText("city is:" + myLocation.getName());
                 int x = calculateScore(distance, score);
-                int y = x + score;
-                tvCityScore.setText("score is:" + y);
-                //להוסיף ניקוד
+                score += x;
+                tvCityScore.setText("score is:" + score);
+                counter ++;
+
+                if (counter>2) {
+                    Toast.makeText(pro_map.this, "your score is:" + score, Toast.LENGTH_SHORT).show();
+                    Intent inn = new Intent(pro_map.this, PreviewActivity.class);
+                    startActivity(inn);
+                }
             }
         });
-
     }
+
 
 
     private double calculateDistance(Point from, Point to) {
@@ -214,21 +222,32 @@ public class pro_map extends AppCompatActivity {
     }
 
     public int calculateScore(double distance, int score){
+        int score1 = score;
         int range = (int) Math.round(distance);
-        if(range>=0 && range<=10)
-            score = 50;
-        else if (range>10 && range<=20)
-            score = 40;
-        else if (range>20 && range<=30)
-            score = 30;
-        else if (range>30 && range<=40)
-            score = 20;
-        else if (range>40 && range<=50)
-            score = 10;
+        if(range>=0 && range<=5)
+            score1 = 50;
+        else if (range>5 && range<=10)
+            score1 = 45;
+        else if (range>10 && range<=15)
+            score1 = 40;
+        else if (range>15 && range<=20)
+            score1 = 35;
+        else if (range>20 && range<=25)
+            score1 = 30;
+        else if (range>25 && range<=30)
+            score1 = 25;
+        else if (range>30 && range<=35)
+            score1 = 20;
+        else if (range>35 && range<=40)
+            score1 = 15;
+        else if (range>40 && range<=45)
+            score1 = 10;
+        else if (range>45 && range<=50)
+            score1 = 5;
         else
-            score = 0;
+            score1 = 0;
 
-        return score;
+        return score1;
 
     }
 //    private void addAnnotationToMap() {
