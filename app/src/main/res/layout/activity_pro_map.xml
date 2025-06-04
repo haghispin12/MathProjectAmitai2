@@ -17,7 +17,8 @@
         android:layout_height="match_parent"
         mapbox:mapbox_cameraTargetLat="32.31"
         mapbox:mapbox_cameraTargetLng="35.06"
-        mapbox:mapbox_cameraZoom="9.0"/>
+        mapbox:mapbox_cameraZoom="9.0"
+        />
 
     <TextView
         android:id="@+id/tvNameOfCity"

@@ -12,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,9 +25,13 @@ import com.mapbox.geojson.Point;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
 //import com.mapbox.maps.MapView;
+import com.mapbox.maps.StyleObjectInfo;
+import com.mapbox.maps.extension.style.layers.Layer;
+import com.mapbox.maps.interactions.TypedFeaturesetDescriptor;
 import com.mapbox.turf.TurfMeasurement;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class pro_map extends AppCompatActivity {
@@ -49,8 +56,13 @@ public class pro_map extends AppCompatActivity {
 
     private double distance;
 
+    private User_pro myUser;
+
     private  ArrayList<Locations> locations = new ArrayList<>();
     private  Point cityPoint = Point.fromLngLat(35.2137, 31.7683);
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,53 @@ public class pro_map extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pro_map);
         initview();
+
+
+
+
+
+
+
+        String email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        //Firebase.
+
+        myUser = new User_pro(email);
+
+        /**
+         *  בודק אם המשתמש קיים בפיירסטור ואם הוא לא קיים הוא מוסיף אותו
+         */
+        //FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
+        FirebaseFirestore.getInstance().collection("users").whereEqualTo("email", myUser).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            if(queryDocumentSnapshots.isEmpty()) {
+                FirebaseFirestore.getInstance().collection("users").add(myUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        int n=0;
+                    }
+
+                });
+                //Toast.makeText(pro_map.this, "add user has been success", Toast.LENGTH_SHORT).show();
+                //create object
+                //FirebaseFirestore.getInstance().collection("users").document().set(myUser); q
+                //update documentid in the global object
+            }else
+            /**
+             *   אם המשתמש מקודם כן קיים, הוא מעדכן את הdocument שלו בפיירסטור
+             */
+                for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.exists()) {
+                        int score = documentSnapshot.getLong("score").intValue();
+                        myUser.setScore(score);
+                        myUser.setDocumentId(documentSnapshot.getReference());
+                    }
+                }
+
+                Toast.makeText(pro_map.this, "user already exist", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -70,7 +129,7 @@ public class pro_map extends AppCompatActivity {
 
 
 
-
+//FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
         FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -79,6 +138,7 @@ public class pro_map extends AppCompatActivity {
                         String name = documentSnapshot.getString("name");
                         double latitiude = documentSnapshot.getDouble("latitude");
                         double longitude = documentSnapshot.getDouble("longitude");
+                        //DocumentReference myDocument = documentSnapshot.getReference();
                         Locations location1 = new Locations(name, latitiude, longitude);
                         locations.add(location1);
                     }
@@ -122,7 +182,7 @@ public class pro_map extends AppCompatActivity {
         if (mapView != null){
             mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                 @Override
-                public void onStyleLoaded(@androidx.annotation.NonNull Style style) {
+                public void onStyleLoaded(@NonNull Style style) {
 
                 }
             });
@@ -135,7 +195,7 @@ public class pro_map extends AppCompatActivity {
         Log.d("random",n+"");
         cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
         //locations.get(n).getLatitiude();
-        tvNameOfCity.setText("city is:" + myLocation.getName());
+        tvNameOfCity.setText("העיר היא: " + myLocation.getName());
 
     }
 
