@@ -1,36 +1,23 @@
 package com.example.mathprojectamitai2;
 
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mapbox.geojson.Point;
+import com.mapbox.turf.TurfMeasurement;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public class game {
-    private String Uid1;
-    private String Uid2;
-    private int status;
+    private String Uid;
 
-    public game(String uid1, String uid2, int status) {
-        Uid1 = uid1;
-        this.status = 0;
-    }
+    private ArrayList<Locations> locations;
 
-    public String getUid1() {
-        return Uid1;
-    }
 
-    public void setUid1(String uid1) {
-        Uid1 = uid1;
-    }
 
-    public String getUid2() {
-        return Uid2;
-    }
 
-    public void setUid2(String uid2) {
-        Uid2 = uid2;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

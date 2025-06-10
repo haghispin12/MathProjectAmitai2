@@ -25,13 +25,9 @@ import com.mapbox.geojson.Point;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
 //import com.mapbox.maps.MapView;
-import com.mapbox.maps.StyleObjectInfo;
-import com.mapbox.maps.extension.style.layers.Layer;
-import com.mapbox.maps.interactions.TypedFeaturesetDescriptor;
 import com.mapbox.turf.TurfMeasurement;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class pro_map extends AppCompatActivity {
@@ -42,6 +38,7 @@ public class pro_map extends AppCompatActivity {
     private TextView tvNameOfCity;
 
     private Button btmyButton;
+
 
     Locations myLocation;
 
@@ -57,6 +54,8 @@ public class pro_map extends AppCompatActivity {
     private double distance;
 
     private User_pro myUser;
+
+    private int previousIndex = -1;
 
     private  ArrayList<Locations> locations = new ArrayList<>();
     private  Point cityPoint = Point.fromLngLat(35.2137, 31.7683);
@@ -82,41 +81,9 @@ public class pro_map extends AppCompatActivity {
 
         myUser = new User_pro(email);
 
-        /**
-         *  בודק אם המשתמש קיים בפיירסטור ואם הוא לא קיים הוא מוסיף אותו
-         */
-        //FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
-        FirebaseFirestore.getInstance().collection("users").whereEqualTo("email", myUser).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-            if(queryDocumentSnapshots.isEmpty()) {
-                FirebaseFirestore.getInstance().collection("users").add(myUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        int n=0;
-                    }
 
-                });
-                //Toast.makeText(pro_map.this, "add user has been success", Toast.LENGTH_SHORT).show();
-                //create object
-                //FirebaseFirestore.getInstance().collection("users").document().set(myUser); q
-                //update documentid in the global object
-            }else
-            /**
-             *   אם המשתמש מקודם כן קיים, הוא מעדכן את הdocument שלו בפיירסטור
-             */
-                for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    if (documentSnapshot.exists()) {
-                        int score = documentSnapshot.getLong("score").intValue();
-                        myUser.setScore(score);
-                        myUser.setDocumentId(documentSnapshot.getReference());
-                    }
-                }
-
-                Toast.makeText(pro_map.this, "user already exist", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+         //  בודק אם המשתמש קיים בפיירסטור ואם הוא לא קיים הוא מוסיף אותו
+         checkIfUserExist();
 
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -129,25 +96,8 @@ public class pro_map extends AppCompatActivity {
 
 
 
-//FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
-        FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    if(documentSnapshot.exists()){
-                        String name = documentSnapshot.getString("name");
-                        double latitiude = documentSnapshot.getDouble("latitude");
-                        double longitude = documentSnapshot.getDouble("longitude");
-                        //DocumentReference myDocument = documentSnapshot.getReference();
-                        Locations location1 = new Locations(name, latitiude, longitude);
-                        locations.add(location1);
-                    }
-                }
-        randomCity();
-
-
-            }
-        });
+        //ממלא את מערך המקומות
+        FillingTheLocationsArray();
 
 
 
@@ -160,8 +110,8 @@ public class pro_map extends AppCompatActivity {
                         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                             Point centerPoint = mapView.getMapboxMap().getCameraState().getCenter();
 
-                            getCords();
-                            showCoordinatesAndDistance(centerPoint);
+                            getCords(); //קבלת מיקום המשתמש
+                            showCoordinatesAndDistance(centerPoint); //הצגת מיקום המשתמש והמרחק מהעיר
 
                         }
                         //getCords();
@@ -189,15 +139,6 @@ public class pro_map extends AppCompatActivity {
         }
 
     }
-    public void randomCity(){
-        int n=getRndomIndex(locations);
-        myLocation = locations.get(n);
-        Log.d("random",n+"");
-        cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
-        //locations.get(n).getLatitiude();
-        tvNameOfCity.setText("העיר היא: " + myLocation.getName());
-
-    }
 
     public void initview(){
         mapView = findViewById(R.id.mapView);
@@ -213,10 +154,10 @@ public class pro_map extends AppCompatActivity {
                 int range = (int) Math.round(distance);
                 Toast.makeText(pro_map.this, "range is:" + range, Toast.LENGTH_SHORT).show();
                 randomCity();
-                tvNameOfCity.setText("city is:" + myLocation.getName());
-                int x = calculateScore(distance, score);
+                tvNameOfCity.setText("העיר היא: " + myLocation.getName());
+                int x = calculateScore(distance, score); //חישוב נקודות
                 score += x;
-                tvCityScore.setText("score is:" + score);
+                tvCityScore.setText("הניקוד שלך הוא: " + score);
                 counter ++;
 
                 if (counter>2) {
@@ -230,12 +171,101 @@ public class pro_map extends AppCompatActivity {
 
 
 
+    /**
+     *  ממלא את מערך המקומות
+     */
+    private void FillingTheLocationsArray() {
+        FirebaseFirestore.getInstance().collection("locations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    if(documentSnapshot.exists()){
+                        String name = documentSnapshot.getString("name");
+                        double latitiude = documentSnapshot.getDouble("latitude");
+                        double longitude = documentSnapshot.getDouble("longitude");
+                        //DocumentReference myDocument = documentSnapshot.getReference();
+                        Locations location1 = new Locations(name, latitiude, longitude);
+                        locations.add(location1);
+                    }
+                }
+                //מקבל עיר רנדומלית ומעדכן את הטקסט
+                randomCity();
+            }
+        });
+    }
+
+    /**
+     *  בודק אם המשתמש קיים בפיירסטור ואם הוא לא קיים הוא מוסיף אותו
+     */
+    private void checkIfUserExist() {
+
+        //FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
+        FirebaseFirestore.getInstance().collection("users").whereEqualTo("email", myUser).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.isEmpty()) {
+                    FirebaseFirestore.getInstance().collection("users").add(myUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            int n=0;
+                        }
+
+                    });
+                    //Toast.makeText(pro_map.this, "add user has been success", Toast.LENGTH_SHORT).show();
+                    //create object
+                    //FirebaseFirestore.getInstance().collection("users").document().set(myUser); q
+                    //update documentid in the global object
+                }else
+                /**
+                 *   אם המשתמש מקודם כן קיים, הוא מעדכן את הdocument שלו בפיירסטור
+                 */
+                    for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        if (documentSnapshot.exists()) {
+                            int score = documentSnapshot.getLong("score").intValue();
+                            myUser.setScore(score);
+                            myUser.setDocumentId(documentSnapshot.getReference());
+                        }
+                    }
+
+                //Toast.makeText(pro_map.this, "user already exist", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    /**
+     *  מקבל עיר רנדומלית ומעדכן את הטקסט
+     */
+    public void randomCity(){
+        int n=getRndomIndex(locations, previousIndex); //קבלת עיר רנדומלית והצבה ב-n
+        previousIndex = n;//שמירה של האינדקס שיצא כדי שלא יוגרל פעמיים אותה העיר
+        myLocation = locations.get(n);
+        Log.d("random",n+"");
+        cityPoint=Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
+        //locations.get(n).getLatitiude();
+        tvNameOfCity.setText("העיר היא: " + myLocation.getName());
+
+    }
+
+
+
+
+    /**
+     * חישוב המרחק
+     * @param from
+     * @param to
+     * @return
+     */
     private double calculateDistance(Point from, Point to) {
         return TurfMeasurement.distance(from, to);
     }
 
+    /**
+     *  הצגת המרחק מהעיר
+     * @param point
+     */
     private void showCoordinatesAndDistance(Point point) {
-        distance = calculateDistance(point, cityPoint);
+        distance = calculateDistance(point, cityPoint); //חישוב מרחק והצבה בדיסטנס
         String coordinates =
                 "\nDistance to city: " + String.format("%.2f", distance) + " km";
         Log.d("tag", coordinates);
@@ -243,6 +273,9 @@ public class pro_map extends AppCompatActivity {
 //        coordinatesTextView.setText(coordinates);
     }
 
+    /**
+     *  הצגת המרחק מהעיר
+     */
     private void showDistance(){
         String coordinates =
                 "\nDistance to city: " + String.format("%.2f", distance) + " km";
@@ -250,6 +283,10 @@ public class pro_map extends AppCompatActivity {
         Toast.makeText(pro_map.this, coordinates, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     *  קבלת מיקום המשתמש
+     * @return
+     */
     public  Point getCords(){
         double latitude = mapView.getMapboxMap().getCameraState().getCenter().latitude();
         double longitude = mapView.getMapboxMap().getCameraState().getCenter().longitude();
@@ -259,11 +296,32 @@ public class pro_map extends AppCompatActivity {
         return point;
     }
 
-    public int getRndomIndex(ArrayList<Locations> locations){
+    /**
+     * קבלת עיר רנדומלית ובודק שלא תוגרל אותה העיר פעמיים
+     *
+     * @param locations
+     * @param previousIndex
+     * @return
+     */
+    public int getRndomIndex(ArrayList<Locations> locations, int previousIndex){
         Random random = new Random();
-        return random.nextInt(locations.size());
+        int newIndex;
+
+        if (locations.size() <= 1)
+                return 0;
+        do {
+            newIndex = random.nextInt(locations.size());
+        } while (newIndex == previousIndex);
+
+        return newIndex;
+
+
+
     }
 
+    /**
+     *  הצגת מיקום המשתמש
+     */
     public void setMarker(){
 
         double latitude = mapView.getMapboxMap().getCameraState().getCenter().latitude();
@@ -281,6 +339,12 @@ public class pro_map extends AppCompatActivity {
 //        map.flyTo(lat, lng);
     }
 
+    /**
+     *  חישוב נקודות
+     * @param distance
+     * @param score
+     * @return
+     */
     public int calculateScore(double distance, int score){
         int score1 = score;
         int range = (int) Math.round(distance);
