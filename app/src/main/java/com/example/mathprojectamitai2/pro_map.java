@@ -15,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -161,9 +162,25 @@ public class pro_map extends AppCompatActivity {
                 counter ++;
 
                 if (counter>2) {
-                    Toast.makeText(pro_map.this, "your score is:" + score, Toast.LENGTH_SHORT).show();
-                    Intent inn = new Intent(pro_map.this, PreviewActivity.class);
-                    startActivity(inn);
+                    if (myUser.getDocumentId() != null) {
+                        myUser.getDocumentId().update("score", score)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d("Firestore", "Score updated successfully");
+                                        Toast.makeText(pro_map.this, "your score is:" + score, Toast.LENGTH_SHORT).show();
+                                        Intent inn = new Intent(pro_map.this, PreviewActivity.class);
+                                        startActivity(inn);
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("Firestore", "Failed to update score", e);
+                                    }
+                                });
+                    }
                 }
             }
         });
@@ -200,7 +217,7 @@ public class pro_map extends AppCompatActivity {
     private void checkIfUserExist() {
 
         //FirebaseFirestore.getInstance().collection("locations").whereEqualTo("name", "תל אביב").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>()
-        FirebaseFirestore.getInstance().collection("users").whereEqualTo("email", myUser).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid", myUser.getUID()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(queryDocumentSnapshots.isEmpty()) {
@@ -224,6 +241,9 @@ public class pro_map extends AppCompatActivity {
                             int score = documentSnapshot.getLong("score").intValue();
                             myUser.setScore(score);
                             myUser.setDocumentId(documentSnapshot.getReference());
+
+
+
                         }
                     }
 
