@@ -39,8 +39,10 @@ public class LoginProActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
 
-
-
+    /**
+     *  כניסה למסך
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,9 @@ public class LoginProActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     *  התחלת המשחק
+     */
     private void startGame(){
         Intent inn = new Intent(this, PreviewActivity.class);
         inn.putExtra("userName",auth.getCurrentUser().getEmail().toString());
@@ -68,6 +72,8 @@ public class LoginProActivity extends AppCompatActivity {
 
 
     boolean isRegister = true;
+
+
     public void initview(){
 
         tvNameOfGame = findViewById(R.id.tvNameOfGame);
@@ -79,6 +85,7 @@ public class LoginProActivity extends AppCompatActivity {
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 //אימות והרשמה
                 if(isRegister == true){
@@ -130,6 +137,10 @@ public class LoginProActivity extends AppCompatActivity {
 
             }
 
+            /**
+             *  אם לא נבחרה כלום
+             * @param adapterView
+             */
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 

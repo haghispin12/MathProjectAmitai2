@@ -23,7 +23,10 @@ public class PreviewActivity extends AppCompatActivity {
     private Button btJoinGame;
 
 
-
+    /**
+     *  כניסה למסך
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +36,21 @@ public class PreviewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  התחלת המשחק
+     */
     private void checkMap(){
         Intent inn = new Intent(this, pro_map.class);
         startActivity(inn);
     }
+
     public void initview(){
         btInvite = findViewById(R.id.btInvite);
         tvIdGame = findViewById(R.id.tvIdGame);
         btGame = findViewById(R.id.btGame);
         etIdGame = findViewById(R.id.etIdGame);
         btJoinGame = findViewById(R.id.btJoinGame);
+
 
         btInvite.setOnClickListener(new View.OnClickListener() {
             @Override
