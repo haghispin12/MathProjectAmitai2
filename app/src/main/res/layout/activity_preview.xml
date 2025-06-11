@@ -17,63 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="START"
-        android:layout_marginBottom="25dp"
+
         android:textSize="30dp"
         />
-
-
-    <Button
-        android:id="@+id/btInvite"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="יצירת משחק"
-        android:textSize="30dp"
-        />
-    <TextView
-        android:id="@+id/tvIdGame"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:text="IdGame: "
-        android:textSize="30dp"
-
-
-        />
-    <Button
-        android:id="@+id/btGame"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="הצטרפות"
-        android:textSize="30dp"
-        />
-
-    <EditText
-        android:id="@+id/etIdGame"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="10dp"
-        android:text="ID: "
-        android:textSize="30dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </LinearLayout>

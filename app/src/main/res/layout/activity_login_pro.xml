@@ -10,8 +10,6 @@
     tools:context=".LoginProActivity"
     android:background="@drawable/appbackground"
     >
-
-
     <TextView
         android:id="@+id/tvNameOfGame"
         android:layout_width="match_parent"
@@ -22,7 +20,6 @@
         android:textColor="#FF0707"
         android:fontFamily="sans-serif-medium"
         />
-
     <Spinner
         android:id="@+id/spLogin"
         android:layout_width="150dp"
@@ -31,13 +28,7 @@
         android:textAlignment="center"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
-
-
-
         />
-
-
-
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -65,9 +56,4 @@
         android:textSize="20dp"
         android:backgroundTint="#673AB7"
         />
-
-
-
-
-
 </LinearLayout>

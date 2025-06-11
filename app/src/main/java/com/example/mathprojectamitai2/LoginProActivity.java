@@ -29,16 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class LoginProActivity extends AppCompatActivity {
-
     private TextView tvNameOfGame;
     private EditText etEmail;
     private EditText etPassowrd;
     private Button btSubmit;
     private Spinner spLogin;
-
     private FirebaseAuth auth;
-
-
     /**
      *  כניסה למסך
      * @param savedInstanceState
@@ -48,18 +44,11 @@ public class LoginProActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_pro);
         initview();
-        //FirebaseApp.initializeApp(this);
-        //FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        int n=10;
          auth = FirebaseAuth.getInstance();
          if(auth.getCurrentUser()!=null){
             startGame();
          }
-
     }
-
-
     /**
      *  התחלת המשחק
      */
@@ -67,29 +56,19 @@ public class LoginProActivity extends AppCompatActivity {
         Intent inn = new Intent(this, PreviewActivity.class);
         inn.putExtra("userName",auth.getCurrentUser().getEmail().toString());
         startActivity(inn);
-
     }
-
-
     boolean isRegister = true;
-
-
     public void initview(){
-
         tvNameOfGame = findViewById(R.id.tvNameOfGame);
         etEmail = findViewById(R.id.etEmail);
         etPassowrd = findViewById(R.id.etPassowrd);
         btSubmit = findViewById(R.id.btSubmit);
         spLogin = findViewById(R.id.spLogin);
-
-
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
                 //אימות והרשמה
                 if(isRegister == true){
-
                     auth.createUserWithEmailAndPassword(etEmail.getText().toString(),etPassowrd.getText().toString()).addOnCompleteListener(LoginProActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,7 +78,6 @@ public class LoginProActivity extends AppCompatActivity {
                             }else{
                                 Toast.makeText(LoginProActivity.this, "Registion failed.", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     });
                 }
@@ -118,13 +96,11 @@ public class LoginProActivity extends AppCompatActivity {
                 }
             }
         });
-
         spLogin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String item = adapterView.getItemAtPosition(position).toString();
                 Toast.makeText(LoginProActivity.this, "sellected: " + item, Toast.LENGTH_LONG).show();
-
                 //שינוי טקסט
                 if(item.equals("sign up")) {
                     isRegister=true;
@@ -133,55 +109,20 @@ public class LoginProActivity extends AppCompatActivity {
                     isRegister = false;
                     btSubmit.setText("כניסה");
                 }
-
-
             }
-
             /**
              *  אם לא נבחרה כלום
              * @param adapterView
              */
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("sign up");
         arrayList.add("Log in");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         spLogin.setAdapter(adapter);
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

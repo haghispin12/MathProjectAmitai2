@@ -19,7 +19,6 @@
         mapbox:mapbox_cameraTargetLng="35.06"
         mapbox:mapbox_cameraZoom="9.0"
         />
-
     <TextView
         android:id="@+id/tvNameOfCity"
         android:layout_width="match_parent"
@@ -30,7 +29,6 @@
         android:textAlignment="center"
         android:background="@color/purple_500"
         />
-
     <TextView
         android:id="@+id/tvCityScore"
         android:layout_width="match_parent"
@@ -41,8 +39,6 @@
         android:layout_marginTop="130dp"
         android:background="@color/purple_500"
         />
-
-
     <ImageView
         android:id="@+id/ivredMarker"
         android:layout_width="50dp"
@@ -50,14 +46,12 @@
         android:layout_gravity="center"
         android:src="@drawable/red_marker"
         />
-
     <Button
         android:id="@+id/btmyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OK"
         android:layout_gravity="bottom"
-
         android:layout_marginBottom="50dp"
         />
 </FrameLayout>

@@ -16,13 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class PreviewActivity extends AppCompatActivity {
-    private Button btInvite;
-    private TextView tvIdGame;
-    private Button btGame;
-    private EditText etIdGame;
     private Button btJoinGame;
-
-
     /**
      *  כניסה למסך
      * @param savedInstanceState
@@ -32,10 +26,7 @@ public class PreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         initview();
-
-
     }
-
     /**
      *  התחלת המשחק
      */
@@ -43,39 +34,14 @@ public class PreviewActivity extends AppCompatActivity {
         Intent inn = new Intent(this, pro_map.class);
         startActivity(inn);
     }
-
     public void initview(){
-        btInvite = findViewById(R.id.btInvite);
-        tvIdGame = findViewById(R.id.tvIdGame);
-        btGame = findViewById(R.id.btGame);
-        etIdGame = findViewById(R.id.etIdGame);
         btJoinGame = findViewById(R.id.btJoinGame);
-
-
-        btInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                public void GameMode(game games) {
-//
-//                }
-            }
-        });
-
-        btGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         btJoinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkMap();
             }
         });
-
-
     }
 
 
