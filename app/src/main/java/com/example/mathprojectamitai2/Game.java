@@ -1,7 +1,6 @@
 package com.example.mathprojectamitai2;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,8 +18,9 @@ public class Game {
 
     MapView mapView;
 
-
     private int previousIndex = -1;
+
+    private int range;
 
     Locations myLocation;
 
@@ -32,17 +32,18 @@ public class Game {
 
 
 
-    public Game(String uid, MapView mapView, int previousIndex, Locations myLocation, double distance, Point cityPoint, ArrayList<Locations> locations) {
+
+
+    public Game(String uid, MapView mapView, int previousIndex, int range, Locations myLocation, double distance, Point cityPoint, ArrayList<Locations> locations) {
         Uid = uid;
         this.mapView = mapView;
         this.previousIndex = previousIndex;
+        this.range = range;
         this.myLocation = myLocation;
         this.distance = distance;
         this.cityPoint = cityPoint;
         this.locations = locations;
     }
-
-
 
     public String getUid() {
         return Uid;
@@ -119,8 +120,6 @@ public class Game {
         myLocation = locations.get(n);
         Log.d("random",n+"");
         cityPoint= Point.fromLngLat(locations.get(n).getLongitude(), locations.get(n).getLatitiude());
-
-
     }
     /**
      * חישוב המרחק
@@ -135,7 +134,7 @@ public class Game {
      *  הצגת המרחק מהעיר
      * @param point
      */
-    private void showCoordinatesAndDistance(Point point) {
+    public void showCoordinatesAndDistance(Point point) {
         distance = calculateDistance(point, cityPoint); //חישוב מרחק והצבה בדיסטנס
         String coordinates =
                 "\nDistance to city: " + String.format("%.2f", distance) + " km";
@@ -178,32 +177,32 @@ public class Game {
 
     /**
      *  חישוב נקודות
-     * @param distance
+     * @param
      * @param score
      * @return
      */
-    public int calculateScore(double distance, int score){
+    public int calculateScore( int score){
         int score1 = score;
-        int range = (int) Math.round(distance);
-        if(range>=0 && range<=5)
+        range = (int) Math.round(distance);
+        if(range >=0 && range <=5)
             score1 = 50;
-        else if (range>5 && range<=10)
+        else if (range >5 && range <=10)
             score1 = 45;
-        else if (range>10 && range<=15)
+        else if (range >10 && range <=15)
             score1 = 40;
-        else if (range>15 && range<=20)
+        else if (range >15 && range <=20)
             score1 = 35;
-        else if (range>20 && range<=25)
+        else if (range >20 && range <=25)
             score1 = 30;
-        else if (range>25 && range<=30)
+        else if (range >25 && range <=30)
             score1 = 25;
-        else if (range>30 && range<=35)
+        else if (range >30 && range <=35)
             score1 = 20;
-        else if (range>35 && range<=40)
+        else if (range >35 && range <=40)
             score1 = 15;
-        else if (range>40 && range<=45)
+        else if (range >40 && range <=45)
             score1 = 10;
-        else if (range>45 && range<=50)
+        else if (range >45 && range <=50)
             score1 = 5;
         else
             score1 = 0;

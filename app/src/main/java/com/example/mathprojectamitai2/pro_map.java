@@ -15,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+//import com.google.android.gms.maps.MapView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,8 +26,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
+//import com.mapbox.geojson.Point;
 //import com.mapbox.maps.MapView;
-import com.mapbox.turf.TurfMeasurement;
+//import com.mapbox.maps.Style;
+//import com.mapbox.maps.MapView;
+//import com.mapbox.turf.TurfMeasurement;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,6 +45,7 @@ public class pro_map extends AppCompatActivity {
     private int counter;
     private TextView tvCityScore;
     private double distance;
+    private int range;
     private User_pro user_pro;
     private Game game;
     private int previousIndex = -1;
@@ -54,12 +59,15 @@ public class pro_map extends AppCompatActivity {
         setContentView(R.layout.activity_pro_map);
         initview();
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        user_pro = new User_pro();
+        user_pro = new User_pro(email);
         user_pro.checkIfUserExist();
-        game = new Game(user_pro.getUID(), mapView, previousIndex, myLocation, distance, cityPoint, locations);
+
+        game = new Game(user_pro.getUID(), mapView, previousIndex,range, myLocation, distance, cityPoint, locations);
+
 
         //ממלא את מערך המקומות
         game.FillingTheLocationsArray();
+
         mapView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -87,11 +95,11 @@ public class pro_map extends AppCompatActivity {
         btmyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int range = (int) Math.round(distance);
-                Toast.makeText(pro_map.this, "range is:" + range, Toast.LENGTH_SHORT).show();
+                  range = (int) Math.round(distance);
+                Toast.makeText(pro_map.this, "range is:" + game.calculateScore(range), Toast.LENGTH_SHORT).show();
                 game.randomCity();
-                tvNameOfCity.setText("העיר היא: " + myLocation.getName());
-                int x = game.calculateScore(distance, score); //חישוב נקודות
+                tvNameOfCity.setText("העיר היא: " + game.getMyLocation().getName());
+                int x = game.calculateScore( score); //חישוב נקודות
                 score += x;
                 tvCityScore.setText("הניקוד שלך הוא: " + score);
                 counter++;
