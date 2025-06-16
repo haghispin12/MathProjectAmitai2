@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserProAdapter extends RecyclerView.Adapter<UserProAdapter.UserViewHolder> {
     private List<User_pro> userList;
+
 
     // ViewHolder שמכיל את כל ה-Views שלנו
     public static class UserViewHolder extends RecyclerView.ViewHolder {
@@ -35,7 +37,7 @@ public class UserProAdapter extends RecyclerView.Adapter<UserProAdapter.UserView
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // אינפלציה של ה-XML לפריט הרשימה
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_user, parent, false);
+                .inflate(R.layout.item_pro_user, parent, false);
         return new UserViewHolder(view);
     }
 

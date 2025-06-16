@@ -21,7 +21,10 @@ public class User_pro {
         this.documentId = documentId;
     }
 
-
+    public User_pro(String UID, int score) {
+        this.UID = UID;
+        this.score = score;
+    }
 
     public User_pro() {
     }
