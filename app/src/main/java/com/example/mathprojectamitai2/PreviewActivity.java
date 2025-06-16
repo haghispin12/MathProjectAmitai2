@@ -33,6 +33,7 @@ public class PreviewActivity extends AppCompatActivity {
     private void checkMap(){
         Intent inn = new Intent(this, pro_map.class);
         startActivity(inn);
+
     }
     public void initview(){
         btJoinGame = findViewById(R.id.btJoinGame);

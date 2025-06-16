@@ -30,11 +30,12 @@ public class Game {
 
     private ArrayList<Locations> locations;
 
+    private GameResponse gameResponse;
 
 
 
 
-    public Game(String uid, MapView mapView, int previousIndex, int range, Locations myLocation, double distance, Point cityPoint, ArrayList<Locations> locations) {
+    public Game(String uid, MapView mapView, int previousIndex, int range, Locations myLocation, double distance, Point cityPoint, ArrayList<Locations> locations, GameResponse gameResponse) {
         Uid = uid;
         this.mapView = mapView;
         this.previousIndex = previousIndex;
@@ -43,6 +44,7 @@ public class Game {
         this.distance = distance;
         this.cityPoint = cityPoint;
         this.locations = locations;
+        this.gameResponse=gameResponse;
     }
 
     public String getUid() {
@@ -107,6 +109,7 @@ public class Game {
                 }
                 //מקבל עיר רנדומלית ומעדכן את הטקסט
                 randomCity();
+                gameResponse.onFilled();
             }
         });
     }

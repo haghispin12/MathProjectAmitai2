@@ -17,7 +17,19 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="START"
-
         android:textSize="30dp"
         />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcShowProUsers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/activity_preview"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 </LinearLayout>

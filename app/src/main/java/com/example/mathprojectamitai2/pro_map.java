@@ -19,10 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
@@ -33,9 +29,8 @@ import com.mapbox.maps.Style;
 //import com.mapbox.turf.TurfMeasurement;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-public class pro_map extends AppCompatActivity {
+public class pro_map extends AppCompatActivity implements GameResponse {
 
     MapView mapView;
     private TextView tvNameOfCity;
@@ -62,11 +57,14 @@ public class pro_map extends AppCompatActivity {
         user_pro = new User_pro(email);
         user_pro.checkIfUserExist();
 
-        game = new Game(user_pro.getUID(), mapView, previousIndex,range, myLocation, distance, cityPoint, locations);
+        game = new Game(user_pro.getUID(), mapView, previousIndex,range, myLocation, distance, cityPoint, locations,this);
+
 
 
         //ממלא את מערך המקומות
         game.FillingTheLocationsArray();
+
+
 
         mapView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -92,6 +90,8 @@ public class pro_map extends AppCompatActivity {
         tvNameOfCity = findViewById(R.id.tvNameOfCity);
         btmyButton = findViewById(R.id.btmyButton);
         tvCityScore = findViewById(R.id.tvCityScore);
+
+
         btmyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,5 +125,14 @@ public class pro_map extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onFilled() {
+        if (game.getMyLocation() != null){
+            tvNameOfCity.setText("העיר היא: " + game.getMyLocation().getName());
+        }else{
+            tvNameOfCity.setText("העיר היא: לא נמצאת");
+        }
     }
 }
