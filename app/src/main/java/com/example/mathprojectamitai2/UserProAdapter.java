@@ -7,13 +7,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mathprojectamitai2.MathPro.User;
+import com.example.mathprojectamitai2.MathPro.UserAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserProAdapter extends RecyclerView.Adapter<UserProAdapter.UserViewHolder> {
+
+    public interface OnItemClickListener{
+        void onItemClick(User_pro item);
+    }
     private List<User_pro> userList;
+    private OnItemClickListener listener;
+
+
+    public UserProAdapter(List<User_pro> userList, OnItemClickListener listener) {
+        this.userList = userList;
+        this.listener = listener;
+    }
+
+
+
+    @Override
+    public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // אינפלציה של ה-XML לפריט הרשימה
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_pro_user, parent, false);
+        return new UserViewHolder(view);
+    }
+
+    // אתחול ה-Adapter עם הרשימה
+    public UserProAdapter(List<User_pro> userList) {
+        this.userList = userList;
+    }
+
+
+
 
 
     // ViewHolder שמכיל את כל ה-Views שלנו
@@ -26,19 +59,12 @@ public class UserProAdapter extends RecyclerView.Adapter<UserProAdapter.UserView
             tvProUserName = itemView.findViewById(R.id.tvProUserName);
             tvProUserScore = itemView.findViewById(R.id.tvProUserScore);
         }
-    }
 
-    // אתחול ה-Adapter עם הרשימה
-    public UserProAdapter(List<User_pro> userList) {
-        this.userList = userList;
-    }
+        public void bind (final User_pro item, final UserAdapter.OnItemClickListener listener){
+            tvProUserName.setText(item.getUID());
+            tvProUserScore.setText(item.getScore()+"");
+        }
 
-    @Override
-    public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // אינפלציה של ה-XML לפריט הרשימה
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_pro_user, parent, false);
-        return new UserViewHolder(view);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.mathprojectamitai2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +44,8 @@ public class PreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         initview();
+        FillingUsersArray();
+
     }
 
 
@@ -78,6 +82,7 @@ public class PreviewActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                users = new ArrayList<>();
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                     if (documentSnapshot.exists()){
                         String uid = documentSnapshot.getString("uid");
@@ -86,7 +91,7 @@ public class PreviewActivity extends AppCompatActivity {
                         users.add(user_pro1);
                     }
                 }
-                //
+                createRecycleView(users);
 
             }
 
@@ -97,8 +102,17 @@ public class PreviewActivity extends AppCompatActivity {
 
 
     ////create method of create recycleview : input: array of users
-    public void createRecycleView(ArrayList<User_pro>users){
-        UserProAdapter userProAdapter = new UserProAdapter(users, )
+    public void createRecycleView(ArrayList<User_pro>users) {
+        UserProAdapter userProAdapter1 = new UserProAdapter(users, new UserProAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(User_pro item) {
+                Toast.makeText(PreviewActivity.this, item.getUID(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        rcShowProUsers.setLayoutManager(new LinearLayoutManager(this));
+        rcShowProUsers.setAdapter(userProAdapter1);
+        rcShowProUsers.setHasFixedSize(true);
+
     }
 
 

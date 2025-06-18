@@ -45,9 +45,9 @@ public class LoginProActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_pro);
         initview();
          auth = FirebaseAuth.getInstance();
-         if(auth.getCurrentUser()!=null){
-            startGame();
-         }
+//         if(auth.getCurrentUser()!=null){
+//            startGame();
+      //   }
     }
     /**
      *  התחלת המשחק
