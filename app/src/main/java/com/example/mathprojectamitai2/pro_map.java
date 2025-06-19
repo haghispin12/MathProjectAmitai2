@@ -56,9 +56,10 @@ public class pro_map extends AppCompatActivity implements GameResponse {
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         user_pro = new User_pro(email);
         user_pro.checkIfUserExist();
-
         game = new Game(user_pro.getUID(), mapView, previousIndex,range, myLocation, distance, cityPoint, locations,this);
-
+        Intent innStart = new Intent(pro_map.this, MyMusicService.class);
+        startForegroundService(innStart);
+             //start
 
 
         //ממלא את מערך המקומות
@@ -121,7 +122,11 @@ public class pro_map extends AppCompatActivity implements GameResponse {
                                 });
                     }
                     Intent inn = new Intent(pro_map.this, PreviewActivity.class);
+                    Intent innEnd = new Intent(pro_map.this, MyMusicService.class);
+                    stopService(innEnd);
+                    //end
                     startActivity(inn);
+
                 }
             }
         });
