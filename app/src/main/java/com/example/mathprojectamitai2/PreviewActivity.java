@@ -101,7 +101,10 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
 
-    ////create method of create recycleview : input: array of users
+    /**
+     * יצירת RecycleView
+     * @param users
+     */
     public void createRecycleView(ArrayList<User_pro>users) {
         UserProAdapter userProAdapter1 = new UserProAdapter(users, new UserProAdapter.OnItemClickListener() {
             @Override
@@ -112,7 +115,6 @@ public class PreviewActivity extends AppCompatActivity {
         rcShowProUsers.setLayoutManager(new LinearLayoutManager(this));
         rcShowProUsers.setAdapter(userProAdapter1);
         rcShowProUsers.setHasFixedSize(true);
-
     }
 
 

@@ -26,6 +26,7 @@ public class MyMusicService extends Service {
     public MyMusicService() {
     }
 
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -37,6 +38,13 @@ public class MyMusicService extends Service {
         super.onCreate();
     }
 
+    /**
+     * פעולה שמתחילה את המוזיקה
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createMusic();
@@ -44,6 +52,9 @@ public class MyMusicService extends Service {
         return START_STICKY;
     }
 
+    /**
+     * פעולה שעוצרת את המוזיקה
+     */
     @Override
     public void onDestroy() {
         Log.d("testService","end");
@@ -82,6 +93,7 @@ public class MyMusicService extends Service {
         service.createNotificationChannel(chan);
         return channelId;
     }
+
 
 
     public void createMusic(){

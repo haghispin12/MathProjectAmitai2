@@ -60,6 +60,7 @@ public class UserProAdapter extends RecyclerView.Adapter<UserProAdapter.UserView
             tvProUserScore = itemView.findViewById(R.id.tvProUserScore);
         }
 
+
         public void bind (final User_pro item, final UserAdapter.OnItemClickListener listener){
             tvProUserName.setText(item.getUID());
             tvProUserScore.setText(item.getScore()+"");

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,8 @@ public class LoginProActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_pro);
         initview();
          auth = FirebaseAuth.getInstance();
+         BroadCastProject b=new BroadCastProject();
+          registerReceiver(b, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
          if(auth.getCurrentUser()!=null){
             startGame();
         }
@@ -97,6 +100,8 @@ public class LoginProActivity extends AppCompatActivity {
             }
         });
         spLogin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String item = adapterView.getItemAtPosition(position).toString();
